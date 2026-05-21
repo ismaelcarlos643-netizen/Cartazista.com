@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -145,7 +146,6 @@ body{
     width:70px;
     height:100px;
     background:white;
-    border:3px solid red;
     border-radius:8px;
     overflow:hidden;
     flex-shrink:0;
@@ -234,7 +234,6 @@ body{
     overflow:hidden;
     border-radius:18px;
     box-shadow:0 0 30px rgba(0,0,0,0.5);
-    transition:0.3s;
 }
 
 /* TAMANHOS */
@@ -332,9 +331,11 @@ body{
     bottom:0;
 }
 
-/* ========================= */
+/* ===================================== */
 /* TEMAS */
-/* ========================= */
+/* ===================================== */
+
+/* PROMOÇÃO */
 
 .tema-promocao{
     border:10px solid #d40000;
@@ -397,10 +398,6 @@ body{
     color:#0f9d58;
 }
 
-.tema-hortifruti .nome-produto{
-    color:#0f9d58;
-}
-
 /* LIMPEZA */
 
 .tema-limpeza{
@@ -449,6 +446,86 @@ body{
 .tema-black .valor,
 .tema-black .rs{
     color:#ffd000;
+}
+
+/* ===================================== */
+/* NOVO MODELO OFERTÃO */
+/* ===================================== */
+
+.tema-ofertao{
+    border:12px solid #d91e18;
+    background:#ffffff;
+}
+
+.tema-ofertao .topo-cartaz{
+    background:#d91e18;
+    height:220px;
+    border-bottom-left-radius:50% 80px;
+    border-bottom-right-radius:50% 80px;
+}
+
+.tema-ofertao .topo-cartaz h1{
+    color:#ffd84d;
+    font-size:120px;
+    letter-spacing:5px;
+}
+
+.tema-ofertao .nome-produto{
+    font-size:92px;
+    line-height:90px;
+    margin-top:50px;
+    font-weight:900;
+    font-style:italic;
+    text-transform:uppercase;
+}
+
+.tema-ofertao .pincel{
+    width:92%;
+    min-height:170px;
+    background:
+    repeating-linear-gradient(
+        -5deg,
+        #ffd400,
+        #ffd400 18px,
+        #ffe95c 18px,
+        #ffe95c 36px
+    );
+    border-radius:0;
+    font-size:95px;
+    font-style:italic;
+    font-weight:900;
+    color:black;
+    transform:rotate(-2deg);
+}
+
+.tema-ofertao .rs{
+    display:none;
+}
+
+.tema-ofertao .valor{
+    font-size:520px;
+    line-height:430px;
+    color:#e1251b;
+    font-weight:900;
+    letter-spacing:-20px;
+}
+
+.tema-ofertao .rodape{
+    background:#d91e18;
+    height:90px;
+    border-top-left-radius:50% 80px;
+    border-top-right-radius:50% 80px;
+}
+
+.tema-ofertao .rodape::after{
+    content:'IC ARTS';
+    position:absolute;
+    left:50%;
+    top:15px;
+    transform:translateX(-50%);
+    color:#ffd84d;
+    font-size:55px;
+    font-weight:900;
 }
 
 /* MOBILE */
@@ -533,8 +610,6 @@ body{
 
 <div class="container">
 
-<!-- SIDEBAR -->
-
 <div class="sidebar">
 
 <div class="logo">
@@ -557,7 +632,7 @@ GERAR CARTAZES
 Tema do Cartaz
 </label>
 
-<select id="tema" class="select" onchange="trocarTemaTempoReal()">
+<select id="tema" class="select">
 
 <option value="promocao">
 Promoção Vermelho
@@ -577,6 +652,10 @@ Limpeza Azul Céu
 
 <option value="black">
 Black Friday
+</option>
+
+<option value="ofertao">
+Ofertão Mercado
 </option>
 
 </select>
@@ -620,9 +699,9 @@ Lista de Produtos
 <textarea id="listaTexto"
 placeholder="Exemplo:
 
+COXÃO MOLE BOVINO - 35,90 - KG
 ARROZ TIO JOÃO - 24,99 - 5KG
 FEIJÃO KICALDO - 8,99 - 1KG
-MACARRÃO - 4,50 - 500G
 
 "></textarea>
 
@@ -807,22 +886,18 @@ function gerarCartazes(){
         let classeTamanho = ''
 
         if(produto.tamanho == 'a4-retrato'){
-
             classeTamanho = 'a4-retrato'
         }
 
         if(produto.tamanho == 'a4-paisagem'){
-
             classeTamanho = 'a4-paisagem'
         }
 
         if(produto.tamanho == '11x15'){
-
             classeTamanho = 'tamanho-11x15'
         }
 
         if(produto.tamanho == '20x27'){
-
             classeTamanho = 'tamanho-20x27'
         }
 
@@ -852,15 +927,34 @@ function gerarCartazes(){
 
             <div class="area-preco">
 
-                <span class="rs">
-                R$
-                </span>
+                ${
+                    produto.tema == 'ofertao'
+                    ?
+                    `
+                    <span class="valor">
+                    ${produto.preco}
+                    </span>
 
-                <span class="valor">
+                    <div style="
+                    font-size:70px;
+                    font-weight:900;
+                    margin-top:-40px;
+                    color:black;
+                    ">
+                    UNIDADE
+                    </div>
+                    `
+                    :
+                    `
+                    <span class="rs">
+                    R$
+                    </span>
 
-                ${produto.preco}
-
-                </span>
+                    <span class="valor">
+                    ${produto.preco}
+                    </span>
+                    `
+                }
 
             </div>
 
@@ -889,32 +983,6 @@ function limparTudo(){
     gerarCartazes()
 
     document.getElementById('listaTexto').value = ''
-}
-
-/* TEMA EM TEMPO REAL */
-
-function trocarTemaTempoReal(){
-
-    let tema =
-    document.getElementById('tema').value
-
-    let cartazes =
-    document.querySelectorAll('.cartaz')
-
-    cartazes.forEach(cartaz=>{
-
-        cartaz.classList.remove(
-            'tema-promocao',
-            'tema-confira',
-            'tema-hortifruti',
-            'tema-limpeza',
-            'tema-black'
-        )
-
-        cartaz.classList.add(
-            'tema-' + tema
-        )
-    })
 }
 
 </script>
