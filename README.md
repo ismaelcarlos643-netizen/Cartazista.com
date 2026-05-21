@@ -1,126 +1,143 @@
-# Cartazista.com
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador Multi-Modelos de Cartazes (Estilo Cartazista.online)</title>
+    <title>Cartazista Profissional - Estilo Fiel</title>
     <style>
-        /* --- FONTES LOCAIS --- */
+        /* --- IMPORTAÇÃO DE FONTES DIRECTAS CASO ESTEJA ONLINE (FALLBACK LOCAL CASO DESTACADO ANTES) --- */
+        @import url('https://googleapis.com');
+        
         @font-face { font-family: 'CartazistaPincel'; src: url('CaveatBrush-Regular.ttf') format('truetype'); }
         @font-face { font-family: 'CartazistaTitulo'; src: url('PermanentMarker-Regular.ttf') format('truetype'); }
 
-        /* --- LAYOUT DO SISTEMA --- */
+        /* --- SISTEMA E INTERFACE DO USUÁRIO --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #333; display: flex; height: 100vh; overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #2c3e50; display: flex; height: 100vh; overflow: hidden; }
         
         #painel-controle {
-            width: 400px; background-color: #1e1e24; color: #fff; padding: 20px;
-            display: flex; flex-direction: column; gap: 15px; box-shadow: 4px 0 10px rgba(0,0,0,0.5); z-index: 10; overflow-y: auto;
+            width: 380px; background-color: #1a1a1a; color: #fff; padding: 25px;
+            display: flex; flex-direction: column; gap: 18px; box-shadow: 5px 0 15px rgba(0,0,0,0.5); z-index: 10;
         }
-        h2 { color: #ffcc00; font-size: 1.2rem; border-bottom: 2px solid #ffcc00; padding-bottom: 5px; }
-        label { font-size: 0.85rem; color: #aaa; font-weight: bold; margin-bottom: -5px; }
+        h2 { color: #ffcc00; font-size: 1.3rem; border-bottom: 3px solid #ffcc00; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        label { font-size: 0.8rem; color: #bbb; font-weight: bold; text-transform: uppercase; }
         select, textarea {
-            width: 100%; background-color: #2d2d34; color: #fff; border: 1px solid #444;
-            padding: 10px; font-size: 0.9rem; border-radius: 4px;
+            width: 100%; background-color: #2b2b2b; color: #fff; border: 2px solid #444;
+            padding: 12px; font-size: 0.95rem; border-radius: 6px; font-weight: bold;
         }
-        select:focus, textarea:focus { outline: 2px solid #ffcc00; }
-        textarea { flex-grow: 1; font-family: monospace; resize: none; min-height: 150px; }
+        select:focus, textarea:focus { outline: none; border-color: #ffcc00; }
+        textarea { flex-grow: 1; font-family: monospace; resize: none; }
         .btn-imprimir {
-            background-color: #28a745; color: white; border: none; padding: 12px;
-            font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s;
+            background: linear-gradient(to bottom, #ffcc00, #ff9900); color: #000; border: none; padding: 15px;
+            font-size: 1.1rem; font-weight: 900; cursor: pointer; border-radius: 6px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .btn-imprimir:hover { background-color: #218838; }
-        
-        #area-visualizacao {
-            flex-grow: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 40px;
-        }
+        .btn-imprimir:hover { background: #ffcc00; }
+        #area-visualizacao { flex-grow: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 50px; background-color: #4b6584; }
 
-        /* --- ESTILOS BASE DOS CARTAZES (RETRAITO A4) --- */
+        /* --- O VERDADEIRO DESIGN CARTAZISTA.ONLINE (A4 VERTICAL) --- */
         .cartaz-a4 {
-            width: 210mm; height: 297mm; background-color: #ffde00; border: 15px solid #e63946;
-            padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex;
+            width: 210mm; height: 297mm; background-color: #ffea00; border: 18px solid #ff0000;
+            padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex;
             flex-direction: column; justify-content: space-between; align-items: center; position: relative; box-sizing: border-box;
+            overflow: hidden;
         }
         
-        /* Variação Paisagem (Deitado) */
-        .cartaz-a4.deitado { width: 297mm; height: 210mm; }
+        /* Tema Açougue (Visual Escuro) */
+        .tema-acougue { background-color: #111111; border-color: #c90000; }
+        .tema-acougue .nome-produto { color: #ffffff !important; -webkit-text-stroke: 3px #000; }
+        .tema-acougue .detalhe-produto { color: #ffea00 !important; }
 
-        /* --- TEMAS (SETORIZAÇÃO) --- */
-        .tema-padrao { background-color: #ffde00; border-color: #e63946; }
-        .tema-acougue { background-color: #111; border-color: #e63946; color: #fff; }
-        .tema-acougue .nome-produto { color: #fff; }
-        .tema-acougue .topo-oferta { background-color: #e63946; color: #fff; }
-        .tema-hortifruti { background-color: #ffde00; border-color: #28a745; }
-        .tema-hortifruti .topo-oferta { background-color: #28a745; }
-        .tema-hortifruti .valor-principal, .tema-hortifruti .cifrão { color: #28a745; }
-
-        /* --- ELEMENTOS DO DESIGN --- */
-        .topo-oferta {
-            font-family: 'CartazistaTitulo', sans-serif; background-color: #e63946; color: #fff;
-            width: 105%; text-transform: uppercase; font-size: 3.5rem; text-align: center; padding: 10px 0; margin-top: -10px;
+        /* Elemento Splash/Selo de Oferta Idêntico ao Site */
+        .selo-oferta {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: #ffffff; font-family: 'Permanent Marker', 'CartazistaTitulo', sans-serif;
+            font-size: 4.5rem; text-transform: uppercase; padding: 15px 80px;
+            border-radius: 0 0 50px 50px; border: 6px solid #000; border-top: none;
+            margin-top: -32px; font-weight: bold; letter-spacing: 3px;
+            text-shadow: 4px 4px 0px #000; box-shadow: 0 8px 0px rgba(0,0,0,0.15);
         }
-        .corpo-produto { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; }
-        .nome-produto { font-family: 'CartazistaPincel', sans-serif; font-size: 4.5rem; color: #111; text-transform: uppercase; line-height: 1.1; }
-        .detalhe-produto { font-family: 'CartazistaPincel', sans-serif; font-size: 2.2rem; color: #555; text-transform: uppercase; margin-top: 5px; }
+
+        /* Nome do Produto com visual de canetão */
+        .corpo-produto {
+            flex-grow: 1; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; width: 100%; text-align: center; margin-top: 20px;
+        }
+        .nome-produto {
+            font-family: 'Caveat Brush', 'CartazistaPincel', sans-serif;
+            font-size: 6.5rem; color: #000000; text-transform: uppercase;
+            line-height: 0.95; font-weight: 900; max-width: 95%;
+            word-wrap: break-word;
+        }
+        .detalhe-produto {
+            font-family: 'Caveat Brush', 'CartazistaPincel', sans-serif;
+            font-size: 3rem; color: #ff0000; text-transform: uppercase;
+            font-weight: bold; margin-top: 15px; letter-spacing: 1px;
+        }
+
+        /* Bloco de Preço Gigante Varejista */
+        .bloco-preco {
+            display: flex; align-items: flex-start; justify-content: center;
+            font-family: 'Caveat Brush', 'CartazistaPincel', sans-serif;
+            color: #ff0000; font-weight: 900; position: relative; margin-bottom: 20px;
+        }
         
-        /* Elementos específicos de Preço */
-        .bloco-preco { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
-        .cifrão { font-family: 'CartazistaTitulo', sans-serif; font-size: 2.5rem; color: #e63946; margin-bottom: -15px; }
-        .valor-principal { font-family: 'CartazistaPincel', sans-serif; font-size: 10rem; color: #e63946; line-height: 0.85; }
-        .valor-centavos { font-size: 5.5rem; vertical-align: super; }
+        /* Contorno preto nos preços para simular profundidade de tinta */
+        .bloco-preco {
+            text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
+        }
 
-        /* Estilos do modelo DE / POR */
-        .preco-de { font-family: 'CartazistaPincel', sans-serif; font-size: 2.5rem; color: #666; text-decoration: line-through; margin-bottom: 10px; }
-        .tema-acougue .preco-de { color: #aaa; }
+        .cifrão { font-size: 4.5rem; margin-top: 1.5rem; margin-right: 5px; }
+        .valor-principal { font-size: 16rem; line-height: 0.75; letter-spacing: -6px; }
+        .valor-centavos { font-size: 8rem; line-height: 0.75; margin-top: -10px; display: inline-block; vertical-align: super; }
 
-        /* Estilos do modelo Atacado/Varejo */
-        .bloco-atacado { display: flex; width: 100%; justify-content: space-around; background: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px; }
-        .unidade-varejo, .unidade-atacado { font-family: 'CartazistaPincel', sans-serif; font-size: 2rem; }
-        .preco-box { font-size: 4rem; color: #e63946; font-family: 'CartazistaPincel', sans-serif; }
+        /* Estilos Específicos para DE / POR */
+        .container-depor { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .preco-de {
+            font-family: 'Caveat Brush', sans-serif; font-size: 3.5rem; color: #333;
+            text-decoration: line-through; text-shadow: none; margin-bottom: -10px; font-weight: bold;
+        }
+        .tema-acougue .preco-de { color: #bbb; }
 
-        /* --- ENGINE DE IMPRESSÃO --- */
+        /* Rodapé de Encarte Padrão */
+        .rodape-decorativo {
+            width: 105%; height: 25px; background: repeating-linear-gradient( -45deg, #000, #000 15px, #ffea00 15px, #ffea00 30px );
+            margin-bottom: -32px; border-top: 5px solid #000;
+        }
+        .tema-acougue .rodape-decorativo {
+            background: repeating-linear-gradient( -45deg, #000, #000 15px, #ff0000 15px, #ff0000 30px );
+        }
+
+        /* --- COMPATIBILIDADE DE IMPRESSÃO --- */
         @media print {
             body { background: none; overflow: visible; }
             #painel-controle { display: none !important; }
             #area-visualizacao { padding: 0 !important; background: none !important; overflow: visible !important; display: block !important; }
             .cartaz-a4 { box-shadow: none !important; page-break-after: always !important; page-break-inside: avoid !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            @page { margin: 0; }
-            .cartaz-a4.em-pe { size: A4 portrait; }
-            .cartaz-a4.deitado { size: A4 landscape; }
+            @page { size: A4 portrait; margin: 0; }
         }
     </style>
 </head>
 <body>
 
     <div id="painel-controle">
-        <h2>Painel Cartazista</h2>
+        <h2>Cartazista Online Pro</h2>
         
-        <label for="modelo-cartaz">Modelo do Cartaz</label>
+        <label for="modelo-cartaz">Modelo Comercial</label>
         <select id="modelo-cartaz">
             <option value="oferta">Oferta Tradicional</option>
-            <option value="depor">Cartaz DE / POR</option>
-            <option value="atacado">Atacado e Varejo</option>
-            <option value="bolsao">Modo Bolsão (2 Folhas)</option>
+            <option value="depor">Selo DE / POR</option>
         </select>
 
-        <label for="tema-setor">Tema / Setor</label>
+        <label for="tema-setor">Estilo Visual</label>
         <select id="tema-setor">
-            <option value="tema-padrao">Padrão (Amarelo/Vermelho)</option>
-            <option value="tema-acougue">Açougue (Preto/Vermelho)</option>
-            <option value="tema-hortifruti">Hortifruti (Amarelo/Verde)</option>
+            <option value="tema-padrao">Mercearia / Hortifruti (Amarelo)</option>
+            <option value="tema-acougue">Açougue / Frios (Preto)</option>
         </select>
 
-        <label for="orientacao">Orientação da Folha</label>
-        <select id="orientacao">
-            <option value="em-pe">Em Pé (Retrato)</option>
-            <option value="deitado">Deitado (Paisagem)</option>
-        </select>
-
-        <label id="label-instrucao">Dados dos Produtos (Separados por ';')</label>
+        <label id="label-instrucao">Produtos (Nome;Detalhe;Preço)</label>
         <textarea id="entrada-dados"></textarea>
         
-        <button class="btn-imprimir" onclick="window.print()">🖨️ Gerar e Imprimir</button>
+        <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir Cartazes (A4)</button>
     </div>
 
     <div id="area-visualizacao"></div>
@@ -129,27 +146,11 @@
         const inputDados = document.getElementById('entrada-dados');
         const selectModelo = document.getElementById('modelo-cartaz');
         const selectTema = document.getElementById('tema-setor');
-        const selectOrientacao = document.getElementById('orientacao');
         const areaVisualizacao = document.getElementById('area-visualizacao');
-        const labelInstrucao = document.getElementById('label-instrucao');
-
-        // Textos de instrução dinâmicos baseados no modelo escolhido
-        const placeholders = {
-            oferta: "Produto;Detalhe;Preço\nEx: ARROZ TIO JOÃO;PCT 5KG;24,99",
-            depor: "Produto;Detalhe;Preço Regular;Preço Oferta\nEx: FEIJÃO CAMIL;1KG;8,99;6,49",
-            atacado: "Produto;Detalhe;Preço Varejo;Preço Atacado\nEx: REFRIGERANTE COCA COLA;PET 2L;8,99;7,99",
-            bolsao: "Produto;Detalhe;Preço\nEx: SABÃO EM PÓ OMO;LAVAGEM PERFEITA 1.6KG;19,90"
-        };
-
-        function atualizarPlaceholder() {
-            const mod = selectModelo.value;
-            labelInstrucao.innerHTML = `Padrão de entrada para este modelo:<br><strong>${placeholders[mod].split('\n')[0]}</strong>`;
-            renderizar();
-        }
 
         function quebrarPreco(valor) {
             if (!valor) return { r: '0', c: '00' };
-            let limpo = valor.replace('.', ',');
+            let limpo = valor.trim().replace('.', ',');
             if (limpo.includes(',')) {
                 let p = limpo.split(',');
                 return { r: p[0], c: p[1].padEnd(2, '0').substring(0, 2) };
@@ -161,7 +162,6 @@
             areaVisualizacao.innerHTML = '';
             const modelo = selectModelo.value;
             const tema = selectTema.value;
-            const orientacao = selectOrientacao.value;
             const linhas = inputDados.value.trim().split('\n');
 
             linhas.forEach(linha => {
@@ -169,7 +169,7 @@
                 const partes = linha.split(';');
                 
                 let htmlCartaz = '';
-                const classeLayout = `cartaz-a4 ${orientacao} ${tema}`;
+                const classeLayout = `cartaz-a4 ${tema}`;
 
                 if (modelo === 'oferta') {
                     const nome = partes[0] || 'PRODUTO';
@@ -178,80 +178,39 @@
                     
                     htmlCartaz = `
                         <div class="${classeLayout}">
-                            <div class="topo-oferta">Oferta</div>
+                            <div class="selo-oferta">Oferta</div>
                             <div class="corpo-produto">
                                 <div class="nome-produto">${nome}</div>
                                 <div class="detalhe-produto">${detalhe}</div>
                             </div>
                             <div class="bloco-preco">
                                 <span class="cifrão">R$</span>
-                                <div class="valor-principal">${p.r}<span class="valor-centavos">,${p.c}</span></div>
+                                <span class="valor-principal">${p.r}</span><span class="valor-centavos">,${p.c}</span>
                             </div>
+                            <div class="rodape-decorativo"></div>
                         </div>`;
                 } 
                 else if (modelo === 'depor') {
                     const nome = partes[0] || 'PRODUTO';
                     const detalhe = partes[1] || '';
-                    const pDe = partes[2] || '0,00';
+                    const precoDe = partes[2] || '0,00';
                     const pPor = quebrarPreco(partes[3]);
 
                     htmlCartaz = `
                         <div class="${classeLayout}">
-                            <div class="topo-oferta">Promoção</div>
+                            <div class="selo-oferta">Só Hoje</div>
                             <div class="corpo-produto">
                                 <div class="nome-produto">${nome}</div>
                                 <div class="detalhe-produto">${detalhe}</div>
                             </div>
-                            <div class="preco-de">De: R$ ${pDe}</div>
-                            <div class="bloco-preco">
-                                <span class="cifrão">Por R$</span>
-                                <div class="valor-principal">${pPor.r}<span class="valor-centavos">,${pPor.c}</span></div>
-                            </div>
-                        </div>`;
-                }
-                else if (modelo === 'atacado') {
-                    const nome = partes[0] || 'PRODUTO';
-                    const detalhe = partes[1] || '';
-                    const pVar = partes[2] || '0,00';
-                    const pAtac = partes[3] || '0,00';
-
-                    htmlCartaz = `
-                        <div class="${classeLayout}">
-                            <div class="topo-oferta">Atacado e Varejo</div>
-                            <div class="corpo-produto">
-                                <div class="nome-produto">${nome}</div>
-                                <div class="detalhe-produto">${detalhe}</div>
-                            </div>
-                            <div class="bloco-atacado">
-                                <div class="unidade-varejo">Varejo Unit.<br><span class="preco-box">R$ ${pVar}</span></div>
-                                <div class="unidade-atacado">A partir de 3 un.<br><span class="preco-box">R$ ${pAtac}</span></div>
-                            </div>
-                        </div>`;
-                }
-                else if (modelo === 'bolsao') {
-                    const nome = partes[0] || 'PRODUTO';
-                    const detalhe = partes[1] || '';
-                    const p = quebrarPreco(partes[2]);
-
-                    // O modo Bolsão gera DUAS folhas separadas consecutivas para o mesmo item
-                    htmlCartaz = `
-                        <!-- Folha 1: Nome do Produto -->
-                        <div class="${classeLayout}">
-                            <div class="topo-oferta">Oferta Especial</div>
-                            <div class="corpo-produto">
-                                <div class="nome-produto" style="font-size: 6rem;">${nome}</div>
-                                <div class="detalhe-produto" style="font-size: 3rem;">${detalhe}</div>
-                            </div>
-                        </div>
-                        <!-- Folha 2: Apenas o Preço Gigante -->
-                        <div class="${classeLayout}">
-                            <div class="topo-oferta">Preço do Dia</div>
-                            <div class="corpo-produto">
+                            <div class="container-depor">
+                                <div class="preco-de">DE: R$ ${precoDe}</div>
                                 <div class="bloco-preco">
-                                    <span class="cifrão" style="font-size: 4rem;">R$</span>
-                                    <div class="valor-principal" style="font-size: 15rem;">${p.r}<span class="valor-centavos" style="font-size: 8rem;">,${p.c}</span></div>
+                                    <span class="cifrão">POR R$</span>
+                                    <span class="valor-principal">${pPor.r}</span><span class="valor-centavos">,${pPor.c}</span>
                                 </div>
                             </div>
+                            <div class="rodape-decorativo"></div>
                         </div>`;
                 }
 
@@ -259,16 +218,20 @@
             });
         }
 
-        // Eventos para atualização dinâmica na tela
         inputDados.addEventListener('input', renderizar);
-        selectModelo.addEventListener('change', () => { atualizarPlaceholder(); inputDados.value = placeholders[selectModelo.value].split('\n').slice(1).join('\n'); renderizar(); });
+        selectModelo.addEventListener('change', () => {
+            if(selectModelo.value === 'depor') {
+                inputDados.value = "SABÃO EM PÓ OMO;LAVAGEM PERFEITA 1.6KG;24,90;19,98";
+            } else {
+                inputDados.value = "ARROZ TIO JOÃO;TIPO 1 - PCT 5KG;24,99\nCOXÃO MOLE BOVINO;KG;34,90";
+            }
+            renderizar();
+        });
         selectTema.addEventListener('change', renderizar);
-        selectOrientacao.addEventListener('change', renderizar);
 
-        // Estado inicial do sistema
-        selectModelo.value = 'oferta';
-        inputDados.value = "ARROZ TIO JOÃO;PCT 5KG;24,99\nFEIJÃO CAMIL;1KG;7,49\nLEITE INTEGRAL;CX 1L;4,29";
-        atualizarPlaceholder();
+        // Inicialização
+        inputDados.value = "ARROZ TIO JOÃO;TIPO 1 - PCT 5KG;24,99\nCOXÃO MOLE BOVINO;KG;32,98";
+        renderizar();
     </script>
 </body>
 </html>
