@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Gerador Multi-Modelos de Cartazes PRO</title>
+<title>Cartazista Offline PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 
-/* FONTES MAIS GROSSAS */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
-
-/* RESET */
 *{
     margin:0;
     padding:0;
@@ -19,686 +17,559 @@
 }
 
 body{
-    font-family:'Segoe UI', sans-serif;
-    background:#333;
-    display:flex;
-    height:100vh;
+    font-family:'Montserrat',sans-serif;
+    background:#e9e9e9;
     overflow:hidden;
 }
 
-/* PAINEL */
-#painel-controle{
-    width:400px;
-    background:#1e1e24;
+.app{
+    display:flex;
+    height:100vh;
+}
+
+/* ===================================
+   MENU LATERAL
+=================================== */
+
+.sidebar{
+    width:390px;
+    min-width:390px;
+    background:#111;
     color:#fff;
     padding:20px;
-
     display:flex;
     flex-direction:column;
     gap:15px;
-
-    overflow-y:auto;
-
-    box-shadow:4px 0 10px rgba(0,0,0,.5);
-    z-index:10;
+    border-right:5px solid #ffd000;
 }
 
-h2{
-    color:#ffcc00;
-    font-size:1.2rem;
-    border-bottom:2px solid #ffcc00;
-    padding-bottom:5px;
+.logo{
+    font-size:30px;
+    font-weight:900;
+    color:#ffd000;
 }
 
-label{
-    font-size:.85rem;
-    color:#aaa;
-    font-weight:bold;
-}
-
-select,
-textarea{
-    width:100%;
-    background:#2d2d34;
-    color:#fff;
-    border:1px solid #444;
-
-    padding:10px;
-    font-size:.9rem;
-
-    border-radius:4px;
+.sub{
+    font-size:13px;
+    color:#bbb;
+    line-height:1.5;
 }
 
 textarea{
+    flex:1;
     resize:none;
-    min-height:180px;
+    width:100%;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#1f1f1f;
+    color:#fff;
+    padding:15px;
+    font-size:15px;
+    line-height:1.6;
     font-family:monospace;
 }
 
-button{
-    background:#28a745;
-    color:#fff;
-    border:none;
-
-    padding:14px;
-
-    font-size:1rem;
-    font-weight:bold;
-
-    border-radius:4px;
-
-    cursor:pointer;
-}
-
-button:hover{
-    background:#218838;
-}
-
-/* VISUALIZAÇÃO */
-#area-visualizacao{
-    flex:1;
-    overflow:auto;
-
-    padding:30px;
-
+.controls{
     display:flex;
     flex-direction:column;
-    align-items:center;
-    gap:40px;
-}
-
-/* CARTAZ PADRÃO */
-.cartaz-a4{
-    width:210mm;
-    height:297mm;
-
-    background:#ffde00;
-
-    border:15px solid #e63946;
-
-    padding:30px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    align-items:center;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.5);
-}
-
-/* ORIENTAÇÃO */
-.cartaz-a4.deitado{
-    width:297mm;
-    height:210mm;
-}
-
-/* TEMAS */
-.tema-padrao{
-    background:#ffde00;
-    border-color:#e63946;
-}
-
-.tema-acougue{
-    background:#111;
-    border-color:#e63946;
-    color:#fff;
-}
-
-.tema-acougue .nome-produto{
-    color:#fff;
-}
-
-.tema-acougue .topo-oferta{
-    background:#e63946;
-}
-
-.tema-acougue .detalhe-produto{
-    color:#ddd;
-}
-
-.tema-hortifruti{
-    background:#fff94d;
-    border-color:#28a745;
-}
-
-.tema-hortifruti .topo-oferta{
-    background:#28a745;
-}
-
-.tema-hortifruti .valor-principal,
-.tema-hortifruti .cifrão{
-    color:#28a745;
-}
-
-/* TOPO */
-.topo-oferta{
-    width:105%;
-
-    background:#e63946;
-    color:#fff;
-
-    text-align:center;
-
-    padding:10px 0;
-
-    text-transform:uppercase;
-
-    font-family:'Anton', sans-serif;
-
-    font-size:5rem;
-
-    letter-spacing:3px;
-}
-
-/* CORPO */
-.corpo-produto{
-    flex:1;
-
-    width:100%;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-/* NOME */
-.nome-produto{
-    font-family:'Anton', sans-serif;
-
-    font-size:7rem;
-
-    color:#111;
-
-    text-transform:uppercase;
-
-    text-align:center;
-
-    line-height:.95;
-
-    letter-spacing:2px;
-}
-
-/* DETALHE */
-.detalhe-produto{
-    margin-top:10px;
-
-    font-family:'Bebas Neue', sans-serif;
-
-    font-size:3rem;
-
-    color:#444;
-
-    text-align:center;
-
-    letter-spacing:2px;
-}
-
-/* PREÇO */
-.bloco-preco{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.cifrão{
-    font-family:'Anton', sans-serif;
-
-    font-size:4rem;
-
-    color:#e63946;
-
-    margin-bottom:-20px;
-}
-
-.valor-principal{
-    font-family:'Bebas Neue', sans-serif;
-
-    font-size:16rem;
-
-    color:#e63946;
-
-    line-height:.8;
-
-    letter-spacing:-4px;
-}
-
-.valor-centavos{
-    font-size:8rem;
-    vertical-align:super;
-}
-
-/* DE / POR */
-.preco-de{
-    font-family:'Bebas Neue', sans-serif;
-
-    font-size:3rem;
-
-    color:#777;
-
-    text-decoration:line-through;
-}
-
-/* ATACADO */
-.bloco-atacado{
-    display:flex;
-    width:100%;
-
-    justify-content:space-around;
-
-    background:rgba(0,0,0,.05);
-
-    padding:15px;
-
-    border-radius:10px;
-}
-
-.unidade-varejo,
-.unidade-atacado{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:2rem;
-    text-align:center;
-}
-
-.preco-box{
-    font-size:4.5rem;
-    color:#e63946;
-    font-family:'Anton', sans-serif;
-}
-
-/* 4 CARTAZES */
-.grade-4{
-    width:210mm;
-    height:297mm;
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:1fr 1fr;
-
     gap:10px;
 }
 
-.cartaz-mini{
-    background:#ffde00;
+select,
+button{
+    height:52px;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:700;
+}
 
-    border:8px solid #e63946;
+select{
+    padding:0 10px;
+}
 
-    padding:15px;
+button{
+    background:#ffd000;
+    cursor:pointer;
+    transition:0.2s;
+}
 
+button:hover{
+    transform:scale(1.02);
+}
+
+/* ===================================
+   PREVIEW
+=================================== */
+
+.preview{
+    flex:1;
+    overflow:auto;
+    padding:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+    gap:25px;
+}
+
+/* ===================================
+   CARTAZ
+=================================== */
+
+.cartaz{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
+    aspect-ratio:1/1.35;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    page-break-inside:avoid;
+    break-inside:avoid;
+}
+
+/* TOPO */
+
+.topo{
+    text-align:center;
+    padding:14px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+/* PRODUTO */
+
+.produto{
+    flex:1;
+    display:flex;
     align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+    font-size:44px;
+    font-weight:900;
+    line-height:1.1;
+    text-transform:uppercase;
 }
 
-.cartaz-mini .topo-oferta{
-    font-size:2rem;
-    padding:5px 0;
+/* PREÇO */
+
+.preco-area{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:8px;
+    padding:20px;
 }
 
-.cartaz-mini .nome-produto{
-    font-size:2.8rem;
+.cifrao{
+    font-size:42px;
+    font-weight:900;
+    margin-bottom:18px;
 }
 
-.cartaz-mini .detalhe-produto{
-    font-size:1.4rem;
+.preco{
+    font-family:'Anton',sans-serif;
+    font-size:110px;
+    line-height:0.9;
 }
 
-.cartaz-mini .valor-principal{
-    font-size:6rem;
+/* RODAPÉ */
+
+.rodape{
+    text-align:center;
+    padding:12px;
+    font-size:15px;
+    font-weight:700;
 }
 
-.cartaz-mini .valor-centavos{
-    font-size:3rem;
+/* ===================================
+   TAMANHO 4 POR FOLHA
+=================================== */
+
+.pequeno{
+    aspect-ratio:1/1.1;
 }
 
-.cartaz-mini .cifrão{
-    font-size:2rem;
+.pequeno .produto{
+    font-size:28px;
 }
 
-/* IMPRESSÃO */
+.pequeno .preco{
+    font-size:70px;
+}
+
+.pequeno .cifrao{
+    font-size:28px;
+}
+
+.pequeno .topo{
+    font-size:20px;
+}
+
+.pequeno .rodape{
+    font-size:12px;
+}
+
+/* ===================================
+   TEMAS
+=================================== */
+
+/* VERMELHO */
+
+.tema-vermelho{
+    background:#fff;
+}
+
+.tema-vermelho .topo{
+    background:#d60000;
+    color:#fff;
+}
+
+.tema-vermelho .produto{
+    color:#111;
+}
+
+.tema-vermelho .preco,
+.tema-vermelho .cifrao{
+    color:#d60000;
+}
+
+.tema-vermelho .rodape{
+    background:#111;
+    color:#fff;
+}
+
+/* CONFIRA */
+
+.tema-confira{
+    background:#ffffff;
+}
+
+.tema-confira .topo{
+    background:#0057d8;
+    color:#fff;
+}
+
+.tema-confira .produto{
+    color:#003e99;
+}
+
+.tema-confira .preco,
+.tema-confira .cifrao{
+    color:#0057d8;
+}
+
+.tema-confira .rodape{
+    background:#0057d8;
+    color:#fff;
+}
+
+/* HORTIFRUTI */
+
+.tema-horti{
+    background:#ffffff;
+}
+
+.tema-horti .topo{
+    background:#1c9b31;
+    color:#fff;
+}
+
+.tema-horti .produto{
+    color:#0f5d1d;
+}
+
+.tema-horti .preco,
+.tema-horti .cifrao{
+    color:#1c9b31;
+}
+
+.tema-horti .rodape{
+    background:#0f5d1d;
+    color:#fff;
+}
+
+/* AÇOUGUE */
+
+.tema-acougue{
+    background:#fff5f5;
+}
+
+.tema-acougue .topo{
+    background:#8b0000;
+    color:#fff;
+}
+
+.tema-acougue .produto{
+    color:#5a0000;
+}
+
+.tema-acougue .preco,
+.tema-acougue .cifrao{
+    color:#c40000;
+}
+
+.tema-acougue .rodape{
+    background:#5a0000;
+    color:#fff;
+}
+
+/* ===================================
+   IMPRESSÃO
+=================================== */
+
+@page{
+    size:A4;
+    margin:8mm;
+}
+
 @media print{
 
     body{
-        background:none;
+        background:#fff;
         overflow:visible;
     }
 
-    #painel-controle{
+    .sidebar{
         display:none;
     }
 
-    #area-visualizacao{
+    .preview{
+        display:grid;
+        gap:0;
         padding:0;
-        overflow:visible;
-        display:block;
     }
 
-    .cartaz-a4,
-    .grade-4{
+    /* GRANDE */
+
+    .grande-print{
+        grid-template-columns:1fr;
+    }
+
+    .grande-print .cartaz{
+        width:190mm;
+        height:277mm;
+        border-radius:0;
         box-shadow:none;
+        margin:auto;
         page-break-after:always;
-
-        -webkit-print-color-adjust:exact;
-        print-color-adjust:exact;
     }
 
-    @page{
+    .grande-print .produto{
+        font-size:72px;
+    }
+
+    .grande-print .preco{
+        font-size:190px;
+    }
+
+    /* 4 POR FOLHA */
+
+    .quatro-print{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .quatro-print .cartaz{
+        width:95mm;
+        height:135mm;
+        border-radius:0;
+        box-shadow:none;
         margin:0;
+        break-inside:avoid;
     }
 
 }
 
 </style>
 </head>
-
 <body>
 
-<div id="painel-controle">
+<div class="app">
 
-<h2>Painel Cartazista PRO</h2>
+    <!-- MENU -->
+    <div class="sidebar">
 
-<label>Modelo do Cartaz</label>
+        <div class="logo">
+            CARTAZISTA OFFLINE PRO
+        </div>
 
-<select id="modelo-cartaz">
-    <option value="oferta">Oferta Tradicional</option>
-    <option value="depor">Cartaz DE / POR</option>
-    <option value="atacado">Atacado e Varejo</option>
-    <option value="mini4">4 Cartazes Pequenos</option>
-</select>
+        <div class="sub">
+            Digite:
+            <br><br>
+            Nome do Produto ; preço
+        </div>
 
-<label>Tema / Setor</label>
-
-<select id="tema-setor">
-    <option value="tema-padrao">Padrão</option>
-    <option value="tema-acougue">Açougue</option>
-    <option value="tema-hortifruti">Hortifruti</option>
-</select>
-
-<label>Orientação</label>
-
-<select id="orientacao">
-    <option value="em-pe">Em Pé</option>
-    <option value="deitado">Deitado</option>
-</select>
-
-<label>Produtos</label>
-
-<textarea id="entrada-dados">
-ARROZ TIO JOÃO;PCT 5KG;24,99
-FEIJÃO CAMIL;1KG;7,49
-LEITE INTEGRAL;CX 1L;4,29
-CAFÉ SANTA CLARA;250G;8,99
+<textarea id="entrada">
+Tomate KG;8.99
+Batata KG;6.49
+Banana Prata;4.99
+Picanha KG;49.90
+Frango KG;12.99
 </textarea>
 
-<button onclick="window.print()">
-🖨️ Imprimir Cartazes
-</button>
+        <div class="controls">
 
-</div>
+            <select id="tema">
 
-<div id="area-visualizacao"></div>
+                <option value="tema-vermelho">
+                    Promoção Vermelha
+                </option>
 
-<script>
+                <option value="tema-confira">
+                    Confira Azul
+                </option>
 
-const inputDados = document.getElementById('entrada-dados');
-const modelo = document.getElementById('modelo-cartaz');
-const tema = document.getElementById('tema-setor');
-const orientacao = document.getElementById('orientacao');
-const area = document.getElementById('area-visualizacao');
+                <option value="tema-horti">
+                    Hortifruti Verde
+                </option>
 
-function quebrarPreco(valor){
+                <option value="tema-acougue">
+                    Açougue Vermelho
+                </option>
 
-    if(!valor){
-        return {r:'0', c:'00'};
-    }
+            </select>
 
-    let limpo = valor.replace('.', ',');
+            <select id="modo">
 
-    if(limpo.includes(',')){
+                <option value="grande">
+                    1 Cartaz Grande por Folha
+                </option>
 
-        let p = limpo.split(',');
+                <option value="pequeno">
+                    4 Cartazes Pequenos por Folha
+                </option>
 
-        return{
-            r:p[0],
-            c:p[1].padEnd(2,'0').substring(0,2)
-        };
-    }
+            </select>
 
-    return{
-        r:limpo,
-        c:'00'
-    };
-}
-
-function cartazHTML(nome, detalhe, preco, temaAtual, orientacaoAtual){
-
-    const p = quebrarPreco(preco);
-
-    return `
-    
-    <div class="cartaz-a4 ${orientacaoAtual} ${temaAtual}">
-    
-        <div class="topo-oferta">
-            OFERTA
-        </div>
-
-        <div class="corpo-produto">
-
-            <div class="nome-produto">
-                ${nome}
-            </div>
-
-            <div class="detalhe-produto">
-                ${detalhe}
-            </div>
-
-        </div>
-
-        <div class="bloco-preco">
-
-            <div class="cifrão">
-                R$
-            </div>
-
-            <div class="valor-principal">
-                ${p.r}<span class="valor-centavos">,${p.c}</span>
-            </div>
+            <button onclick="imprimirCartazes()">
+                Imprimir Cartazes
+            </button>
 
         </div>
 
     </div>
 
-    `;
-}
+    <!-- PREVIEW -->
+    <div class="preview grande-print" id="preview"></div>
 
-function renderizar(){
+</div>
 
-    area.innerHTML = '';
+<script>
 
-    const linhas = inputDados.value.trim().split('\n');
+const entrada = document.getElementById("entrada");
+const preview = document.getElementById("preview");
+const tema = document.getElementById("tema");
+const modo = document.getElementById("modo");
 
-    /* 4 CARTAZES */
+function formatarPreco(valor){
 
-    if(modelo.value === 'mini4'){
+    let numero = parseFloat(
+        valor.replace(",", ".")
+    );
 
-        let html = `<div class="grade-4">`;
-
-        linhas.slice(0,4).forEach(linha=>{
-
-            const partes = linha.split(';');
-
-            const nome = partes[0] || 'PRODUTO';
-            const detalhe = partes[1] || '';
-            const preco = quebrarPreco(partes[2] || '0,00');
-
-            html += `
-
-            <div class="cartaz-mini ${tema.value}">
-
-                <div class="topo-oferta">
-                    OFERTA
-                </div>
-
-                <div class="corpo-produto">
-
-                    <div class="nome-produto">
-                        ${nome}
-                    </div>
-
-                    <div class="detalhe-produto">
-                        ${detalhe}
-                    </div>
-
-                </div>
-
-                <div class="bloco-preco">
-
-                    <div class="cifrão">
-                        R$
-                    </div>
-
-                    <div class="valor-principal">
-                        ${preco.r}<span class="valor-centavos">,${preco.c}</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            `;
-        });
-
-        html += `</div>`;
-
-        area.innerHTML = html;
-
-        return;
+    if(isNaN(numero)){
+        numero = 0;
     }
 
-    linhas.forEach(linha=>{
+    return numero.toFixed(2).replace(".", ",");
+}
 
-        if(!linha.trim()) return;
+function gerarCartazes(){
 
-        const partes = linha.split(';');
+    preview.innerHTML = "";
 
-        const nome = partes[0] || 'PRODUTO';
-        const detalhe = partes[1] || '';
+    if(modo.value === "pequeno"){
+        preview.className = "preview quatro-print";
+    }else{
+        preview.className = "preview grande-print";
+    }
 
-        if(modelo.value === 'oferta'){
+    const linhas = entrada.value
+        .split("\n")
+        .filter(linha => linha.trim() !== "");
 
-            area.innerHTML += cartazHTML(
-                nome,
-                detalhe,
-                partes[2],
-                tema.value,
-                orientacao.value
-            );
+    linhas.forEach(linha => {
+
+        const partes = linha.split(";");
+
+        const produto = partes[0]
+            ? partes[0].trim()
+            : "PRODUTO";
+
+        const preco = partes[1]
+            ? formatarPreco(partes[1])
+            : "0,00";
+
+        const cartaz = document.createElement("div");
+
+        let tamanhoClasse = "";
+
+        if(modo.value === "pequeno"){
+            tamanhoClasse = "pequeno";
         }
 
-        else if(modelo.value === 'depor'){
+        cartaz.className =
+            `cartaz ${tema.value} ${tamanhoClasse}`;
 
-            const p = quebrarPreco(partes[3]);
+        let titulo = "PROMOÇÃO";
 
-            area.innerHTML += `
+        if(tema.value === "tema-confira"){
+            titulo = "CONFIRA";
+        }
 
-            <div class="cartaz-a4 ${orientacao.value} ${tema.value}">
+        if(tema.value === "tema-horti"){
+            titulo = "HORTIFRUTI";
+        }
 
-                <div class="topo-oferta">
-                    PROMOÇÃO
+        if(tema.value === "tema-acougue"){
+            titulo = "AÇOUGUE";
+        }
+
+        cartaz.innerHTML = `
+
+            <div class="topo">
+                ${titulo}
+            </div>
+
+            <div class="produto">
+                ${produto}
+            </div>
+
+            <div class="preco-area">
+
+                <div class="cifrao">
+                    R$
                 </div>
 
-                <div class="corpo-produto">
-
-                    <div class="nome-produto">
-                        ${nome}
-                    </div>
-
-                    <div class="detalhe-produto">
-                        ${detalhe}
-                    </div>
-
-                </div>
-
-                <div class="preco-de">
-                    DE: R$ ${partes[2]}
-                </div>
-
-                <div class="bloco-preco">
-
-                    <div class="cifrão">
-                        POR R$
-                    </div>
-
-                    <div class="valor-principal">
-                        ${p.r}<span class="valor-centavos">,${p.c}</span>
-                    </div>
-
+                <div class="preco">
+                    ${preco}
                 </div>
 
             </div>
 
-            `;
-        }
-
-        else if(modelo.value === 'atacado'){
-
-            area.innerHTML += `
-
-            <div class="cartaz-a4 ${orientacao.value} ${tema.value}">
-
-                <div class="topo-oferta">
-                    ATACADO E VAREJO
-                </div>
-
-                <div class="corpo-produto">
-
-                    <div class="nome-produto">
-                        ${nome}
-                    </div>
-
-                    <div class="detalhe-produto">
-                        ${detalhe}
-                    </div>
-
-                </div>
-
-                <div class="bloco-atacado">
-
-                    <div class="unidade-varejo">
-                        VAREJO<br>
-                        <span class="preco-box">
-                            R$ ${partes[2]}
-                        </span>
-                    </div>
-
-                    <div class="unidade-atacado">
-                        3 UN OU +<br>
-                        <span class="preco-box">
-                            R$ ${partes[3]}
-                        </span>
-                    </div>
-
-                </div>
-
+            <div class="rodape">
+                OFERTA ESPECIAL
             </div>
 
-            `;
-        }
+        `;
+
+        preview.appendChild(cartaz);
 
     });
 
 }
 
-inputDados.addEventListener('input', renderizar);
+function imprimirCartazes(){
+    window.print();
+}
 
-modelo.addEventListener('change', renderizar);
+entrada.addEventListener("input", gerarCartazes);
+tema.addEventListener("change", gerarCartazes);
+modo.addEventListener("change", gerarCartazes);
 
-tema.addEventListener('change', renderizar);
-
-orientacao.addEventListener('change', renderizar);
-
-renderizar();
+gerarCartazes();
 
 </script>
 
