@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreçoPlay - Gerador de Placa de Oferta</title>
+    <title>PreçoPlay - Gerador de Cartazes Profissional</title>
     <style>
         :root {
-            --amarelo-varejo: #FFEA00;
-            --vermelho-oferta: #E53935;
-            --preto-texto: #1A1A1A;
+            --amarelo-preco-play: #FFAA00;
+            --vermelho-preco-play: #D50000;
+            --preto-borda: #000000;
         }
 
         * {
@@ -18,202 +19,220 @@
         }
 
         body {
-            background-color: #e0e4e8;
-            font-family: 'Arial Black', Impact, sans-serif;
+            background-color: #1e222b;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px;
+            padding: 20px;
         }
 
-        /* --- PAINEL DE CONTROLE (Desaparece na impressão) --- */
-        #painel-config {
+        /* --- PAINEL DE CONTROLE (Sumiço na Impressão) --- */
+        #painel-controle {
             background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
+            z-index: 10;
         }
 
-        #painel-config h2 {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-            text-align: center;
+        .campo {
+            margin-bottom: 12px;
         }
 
-        .grupo-input {
-            margin-bottom: 15px;
-        }
-
-        .grupo-input label {
+        .campo label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-size: 13px;
-            color: #555;
-            font-family: Arial, sans-serif;
             font-weight: bold;
+            color: #333;
         }
 
-        .grupo-input input {
+        .campo input {
             width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid #ccd1d9;
-            border-radius: 6px;
-            font-family: Arial, sans-serif;
-            transition: border-color 0.2s;
+            padding: 10px;
+            font-size: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
         }
 
-        .grupo-input input:focus {
-            border-color: var(--vermelho-oferta);
+        .campo input:focus {
+            border-color: var(--vermelho-preco-play);
             outline: none;
         }
 
-        .btn-imprimir {
+        button {
             width: 100%;
-            background-color: var(--vermelho-oferta);
+            background: var(--vermelho-preco-play);
             color: white;
             border: none;
-            padding: 14px;
+            padding: 12px;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
-            transition: transform 0.1s, background 0.2s;
+            text-transform: uppercase;
         }
 
-        .btn-imprimir:hover {
-            background-color: #c62828;
-            transform: translateY(-1px);
+        button:hover {
+            background: #b30000;
         }
 
-        /* --- ESTRUTURA DA PLACA (Estilo PreçoPlay) --- */
-        .preview-container {
+        /* --- O CARTAZ (Estilo Autêntico PreçoPlay) --- */
+        .preview-area {
             background: #fff;
-            padding: 10px;
-            box-shadow: 0 12px 36px rgba(0,0,0,0.2);
+            padding: 5px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
 
-        #placa-preco {
+        #cartaz-a4 {
             width: 210mm;
             height: 297mm;
-            background-color: var(--amarelo-varejo);
-            border: 18px solid var(--vermelho-oferta);
-            padding: 40px;
+            background-color: var(--amarelo-preco-play);
+            border: 14px solid var(--vermelho-preco-play);
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             position: relative;
             overflow: hidden;
+            box-shadow: inset 0 0 0 6px #ffffff; /* Linha branca interna clássica */
         }
 
-        /* Tarja de Oferta Superior */
-        .topo-oferta {
-            background-color: var(--vermelho-oferta);
+        /* Header de Oferta Inclinado */
+        .tag-oferta {
+            background: var(--vermelho-preco-play);
             color: #ffffff;
-            font-size: 55px;
-            padding: 15px 70px;
+            font-family: 'Impact', sans-serif;
+            font-size: 80px;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            transform: skewX(-12deg);
-            border-radius: 4px;
-            box-shadow: 6px 6px 0px var(--preto-texto);
+            padding: 10px 90px;
+            letter-spacing: 4px;
+            transform: rotate(-3deg) skewX(-10deg);
+            box-shadow: 8px 8px 0px var(--preto-borda);
+            border: 4px solid #ffffff;
             margin-top: 15px;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 0px var(--preto-borda);
         }
 
-        /* Nome do Produto */
-        .container-produto {
-            flex-grow: 1;
+        /* Nome do Produto Centralizado com Destaque */
+        .bloco-produto {
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            max-height: 35%;
-            width: 100%;
-            margin: 30px 0;
+            min-height: 180px;
         }
 
-        #txt-produto {
-            font-size: 60px;
-            color: var(--preto-texto);
+        #exibir-produto {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 70px;
+            color: #ffffff;
             text-transform: uppercase;
-            line-height: 1.1;
-            text-align: center;
+            line-height: 0.95;
+            letter-spacing: 1px;
+            /* Efeito de contorno preto grosso de cartazeiro manual */
+            text-shadow: 
+                -4px -4px 0 var(--preto-borda),  
+                 4px -4px 0 var(--preto-borda),
+                -4px  4px 0 var(--preto-borda),
+                 4px  4px 0 var(--preto-borda),
+                 6px  8px 0px rgba(0,0,0,0.4);
             word-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            max-width: 95%;
         }
 
-        /* Bloco de Preço Gigante */
-        .container-preco {
+        /* Bloco de Preço Gigante do Varejo */
+        .bloco-preco {
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            color: var(--vermelho-oferta);
-            filter: drop-shadow(4px 4px 0px var(--preto-texto));
-            margin-bottom: 40px;
+            font-family: 'Impact', sans-serif;
+            color: var(--vermelho-preco-play);
+            /* Sombra projetada no preço */
+            filter: drop-shadow(6px 6px 0px var(--preto-borda));
+            margin-bottom: 25px;
         }
 
         .cifrao {
-            font-size: 80px;
-            margin-top: 25px;
-            margin-right: 10px;
+            font-size: 90px;
+            margin-top: 15px;
+            margin-right: 2px;
+            letter-spacing: -5px;
         }
 
         .reais {
-            font-size: 260px;
-            line-height: 0.75;
-            letter-spacing: -8px;
-        }
-
-        .col-centavos {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-left: 10px;
-        }
-
-        .centavos {
-            font-size: 110px;
-            line-height: 0.8;
-            border-bottom: 10px solid var(--vermelho-oferta);
-            padding-bottom: 5px;
+            font-size: 330px;
+            line-height: 0.72;
+            letter-spacing: -12px;
             font-weight: 900;
         }
 
-        .unidade {
-            font-size: 38px;
-            color: var(--preto-texto);
-            text-transform: uppercase;
-            margin-top: 15px;
-            font-family: 'Arial Black', sans-serif;
+        .lado-centavos {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 5px;
+            margin-top: -5px;
         }
 
-        /* --- REGRAS PARA IMPRESSÃO (A4) --- */
+        .centavos {
+            font-size: 140px;
+            line-height: 0.75;
+            font-weight: 900;
+            letter-spacing: -4px;
+            border-bottom: 14px solid var(--vermelho-preco-play);
+            padding-bottom: 2px;
+        }
+
+        .unidade {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 35px;
+            color: var(--preto-borda);
+            text-transform: uppercase;
+            margin-top: 15px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        /* Rodapé com Grafismo de Faixas */
+        .rodape-decorativo {
+            width: 105%;
+            height: 25px;
+            background: repeating-linear-stripes(
+                -45deg,
+                var(--vermelho-preco-play),
+                var(--vermelho-preco-play) 20px,
+                #ffffff 20px,
+                #ffffff 40px
+            );
+            margin-bottom: -15px;
+            border-top: 4px solid var(--preto-borda);
+        }
+
+        /* --- CONFIGURAÇÃO DE IMPRESSÃO A4 --- */
         @media print {
             body {
                 background: #fff;
                 padding: 0;
             }
-            #painel-config {
-                display: none; /* Esconde as configurações ao imprimir */
+            #painel-controle {
+                display: none;
             }
-            .preview-container {
+            .preview-area {
                 padding: 0;
                 box-shadow: none;
             }
-            #placa-preco {
+            #cartaz-a4 {
                 width: 210mm;
                 height: 297mm;
-                border: 18px solid var(--vermelho-oferta);
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -222,61 +241,66 @@
 </head>
 <body>
 
-    <div id="painel-config">
-        <h2>PreçoPlay - Gerador Comercial</h2>
-        <div class="grupo-input">
-            <label for="input-prod">Descrição do Produto</label>
-            <input type="text" id="input-prod" value="Café Melitta Vácuo 500g" oninput="renderPlaca()">
+    <div id="painel-controle">
+        <div class="campo">
+            <label for="input-prod">Nome do Produto (Letras Garrafais)</label>
+            <input type="text" id="input-prod" value="SABÃO EM PÓ OMO LAVAGEM PERFEITA 1,6KG" oninput="atualizarGrade()">
         </div>
-        <div class="grupo-input">
-            <label for="input-rs">Valor (Reais)</label>
-            <input type="number" id="input-rs" value="18" oninput="renderPlaca()">
+        <div class="campo">
+            <label for="input-reais">Preço (Inteiro)</label>
+            <input type="number" id="input-reais" value="19" oninput="atualizarGrade()">
         </div>
-        <div class="grupo-input">
-            <label for="input-cts">Centavos</label>
-            <input type="text" id="input-cts" value="95" maxlength="2" oninput="renderPlaca()">
+        <div class="campo">
+            <label for="input-centavos">Centavos</label>
+            <input type="text" id="input-centavos" value="98" maxlength="2" oninput="atualizarGrade()">
         </div>
-        <div class="grupo-input">
-            <label for="input-uni">Medida (Ex: UN, KG, LT)</label>
-            <input type="text" id="input-uni" value="UN" oninput="renderPlaca()">
+        <div class="campo">
+            <label for="input-unidade">Unidade (Ex: CADA, KG, UN)</label>
+            <input type="text" id="input-unidade" value="CADA" oninput="atualizarGrade()">
         </div>
-        <button class="btn-imprimir" onclick="window.print()">Gerar & Imprimir Placa</button>
+        <button onclick="window.print()">Imprimir Cartaz A4</button>
     </div>
 
-    <div class="preview-container">
-        <div id="placa-preco">
-            <div class="topo-oferta">Oferta</div>
+    <div class="preview-area">
+        <div id="cartaz-a4">
+            <!-- Selo Superior -->
+            <div class="tag-oferta">OFERTA</div>
             
-            <div class="container-produto">
-                <h1 id="txt-produto">Café Melitta Vácuo 500g</h1>
+            <!-- Nome do Produto -->
+            <div class="bloco-produto">
+                <h1 id="exibir-produto">SABÃO EM PÓ OMO LAVAGEM PERFEITA 1,6KG</h1>
             </div>
             
-            <div class="container-preco">
+            <!-- Preço Estilo PreçoPlay -->
+            <div class="bloco-preco">
                 <span class="cifrao">R$</span>
-                <span class="reais" id="txt-reais">18</span>
-                <div class="col-centavos">
-                    <span class="centavos" id="txt-centavos">95</span>
-                    <span class="unidade" id="txt-unidade">UN</span>
+                <span class="reais" id="exibir-reais">19</span>
+                <div class="lado-centavos">
+                    <span class="centavos" id="exibir-centavos">98</span>
+                    <span class="unidade" id="exibir-unidade">CADA</span>
                 </div>
             </div>
+
+            <!-- Faixa listrada de rodapé para fechar o layout -->
+            <div class="rodape-decorativo"></div>
         </div>
     </div>
 
     <script>
-        function renderPlaca() {
+        function atualizarGrade() {
             const produto = document.getElementById('input-prod').value;
-            const reais = document.getElementById('input-rs').value || '0';
-            let centavos = document.getElementById('input-cts').value || '00';
-            const unidade = document.getElementById('input-uni').value;
+            const reais = document.getElementById('input-reais').value || '0';
+            let centavos = document.getElementById('input-centavos').value || '00';
+            const unidade = document.getElementById('input-unidade').value;
 
-            // Ajuste automático caso o usuário digite apenas 1 dígito nos centavos
-            if (centavos.length === 1) centavos = centavos + '0';
+            if(centavos.length === 1) centavos = centavos + '0';
 
-            document.getElementById('txt-produto').innerText = produto;
-            document.getElementById('txt-reais').innerText = reais;
-            document.getElementById('txt-centavos').innerText = centavos;
-            document.getElementById('txt-unidade').innerText = unidade;
+            document.getElementById('exibir-produto').innerText = produto;
+            document.getElementById('exibir-reais').innerText = reais;
+            document.getElementById('exibir-centavos').innerText = centavos;
+            document.getElementById('exibir-unidade').innerText = unidade;
         }
     </script>
 </body>
 </html>
+
