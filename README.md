@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cartazista</title>
+<title>Cartazista Pro</title>
 
 <style>
+
+/* =========================================================
+RESET
+========================================================= */
 
 *{
     margin:0;
@@ -15,40 +19,58 @@
 }
 
 body{
-    background:#1b1b1b;
+
+    background:#111;
     font-family:Arial, sans-serif;
+
 }
 
-/* =========================================
+/* =========================================================
 PAINEL
-========================================= */
+========================================================= */
 
 .painel{
+
     width:100%;
     max-width:420px;
+
     margin:20px auto;
+
     background:#fff;
+
     padding:20px;
-    border-radius:12px;
+
+    border-radius:14px;
+
 }
 
 .campo{
+
     margin-bottom:15px;
+
 }
 
 .campo label{
+
     display:block;
-    margin-bottom:5px;
+
+    margin-bottom:6px;
+
     font-weight:bold;
+
 }
 
 .campo input,
 .campo select{
 
     width:100%;
+
     padding:14px;
-    border:1px solid #ccc;
+
     border-radius:8px;
+
+    border:1px solid #ccc;
+
     font-size:16px;
 
 }
@@ -56,29 +78,42 @@ PAINEL
 button{
 
     width:100%;
-    padding:16px;
+
     border:none;
-    border-radius:10px;
+
     background:#00b85c;
+
     color:#fff;
+
+    padding:16px;
+
+    border-radius:10px;
+
     font-size:18px;
+
     font-weight:bold;
 
+    cursor:pointer;
+
 }
 
-/* =========================================
+/* =========================================================
 ÁREA
-========================================= */
+========================================================= */
 
 .area{
+
     display:flex;
+
     justify-content:center;
+
     padding:20px;
+
 }
 
-/* =========================================
-FOLHA A4
-========================================= */
+/* =========================================================
+CARTAZ
+========================================================= */
 
 .cartaz{
 
@@ -86,20 +121,22 @@ FOLHA A4
     height:297mm;
 
     background:#fff;
-    overflow:hidden;
+
     position:relative;
+
+    overflow:hidden;
 
 }
 
-/* =========================================
-CORES
-========================================= */
+/* =========================================================
+TEMAS
+========================================================= */
 
 .vermelho{
 
-    --topo:#d91f11;
+    --topo:#df140a;
     --textoTopo:#ffd84d;
-    --preco:#e31b12;
+    --preco:#ef1b12;
     --pincel:#ffd400;
 
 }
@@ -109,7 +146,7 @@ CORES
     --topo:#005eff;
     --textoTopo:#ffffff;
     --preco:#005eff;
-    --pincel:#8cc8ff;
+    --pincel:#7dc7ff;
 
 }
 
@@ -118,7 +155,7 @@ CORES
     --topo:#00a651;
     --textoTopo:#ffffff;
     --preco:#00a651;
-    --pincel:#9cff9c;
+    --pincel:#98ff98;
 
 }
 
@@ -131,20 +168,22 @@ CORES
 
 }
 
-/* =========================================
+/* =========================================================
 TOPO
-========================================= */
+========================================================= */
 
 .topo{
 
     height:24%;
+
     background:var(--topo);
 
     position:relative;
 
     display:flex;
-    align-items:center;
+
     justify-content:center;
+    align-items:center;
 
 }
 
@@ -170,49 +209,96 @@ TOPO
 
     color:var(--textoTopo);
 
-    font-size:90px;
-    font-family:Georgia, serif;
+    font-size:95px;
+
+    font-family:
+    Georgia,
+    serif;
+
     font-weight:bold;
 
     z-index:2;
 
 }
 
-/* =========================================
+/* =========================================================
 CONTEÚDO
-========================================= */
+========================================================= */
 
 .conteudo{
 
+    height:76%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
     text-align:center;
-    padding:40px 25px;
+
+    padding:20px 20px 0;
 
 }
+
+/* =========================================================
+DESCRIÇÃO METADE
+========================================================= */
+
+.descricao{
+
+    height:45%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+/* =========================================================
+PRODUTO
+========================================================= */
 
 .produto{
 
-    font-size:70px;
-    font-weight:900;
+    font-size:82px;
+
+    font-weight:999;
+
+    font-family:
+    Impact,
+    Arial Black,
+    sans-serif;
+
     font-style:italic;
-    line-height:0.95;
+
+    line-height:0.88;
+
+    letter-spacing:-3px;
+
     text-transform:uppercase;
+
+    color:#111;
 
 }
 
-/* =========================================
+/* =========================================================
 PINCEL
-========================================= */
+========================================================= */
 
 .pincel{
 
     position:relative;
 
-    margin:15px auto;
-
     width:100%;
-    max-width:85%;
 
-    padding:10px;
+    max-width:90%;
+
+    margin:14px auto;
+
+    padding:12px;
 
 }
 
@@ -221,60 +307,100 @@ PINCEL
     content:"";
 
     position:absolute;
+
     inset:0;
 
     background:
     repeating-linear-gradient(
+
         0deg,
+
         var(--pincel) 0px,
-        var(--pincel) 12px,
-        #ffffff44 12px,
-        #ffffff44 20px
+        var(--pincel) 14px,
+
+        #ffffff55 14px,
+        #ffffff55 22px
+
     );
 
-    transform:skew(-4deg);
+    transform:skew(-5deg);
 
     z-index:-1;
 
 }
 
-/* =========================================
-PREÇO
-========================================= */
+/* =========================================================
+PREÇO METADE
+========================================================= */
+
+.preco-area{
+
+    height:55%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* =========================================================
+PREÇO GIGANTE
+========================================================= */
 
 .preco{
 
-    font-size:220px;
-    font-weight:900;
-    line-height:0.85;
+    font-size:300px;
+
+    font-family:
+    Impact,
+    Arial Black,
+    sans-serif;
+
+    font-weight:999;
+
+    line-height:0.8;
+
     color:var(--preco);
 
-    letter-spacing:-10px;
+    letter-spacing:-18px;
 
     white-space:nowrap;
 
 }
 
-/* =========================================
+/* =========================================================
 UNIDADE
-========================================= */
+========================================================= */
 
 .unidade{
 
     margin-top:10px;
 
-    font-size:50px;
-    font-weight:900;
+    font-size:58px;
+
+    font-family:
+    Impact,
+    Arial Black,
+    sans-serif;
+
+    font-weight:999;
+
+    letter-spacing:-2px;
 
 }
 
-/* =========================================
+/* =========================================================
 RODAPÉ
-========================================= */
+========================================================= */
 
 .rodape{
 
     position:absolute;
+
     bottom:0;
 
     width:100%;
@@ -283,8 +409,9 @@ RODAPÉ
     background:var(--topo);
 
     display:flex;
-    align-items:center;
+
     justify-content:center;
+    align-items:center;
 
 }
 
@@ -310,22 +437,28 @@ RODAPÉ
 
     color:var(--textoTopo);
 
-    font-size:50px;
-    font-family:Georgia, serif;
+    font-size:52px;
+
+    font-weight:bold;
+
+    font-family:
+    Georgia,
+    serif;
 
     z-index:2;
 
 }
 
-/* =========================================
-MOBILE PREVIEW
-========================================= */
+/* =========================================================
+MOBILE
+========================================================= */
 
 @media(max-width:900px){
 
     .cartaz{
 
-        transform:scale(.45);
+        transform:scale(.42);
+
         transform-origin:top center;
 
     }
@@ -338,9 +471,9 @@ MOBILE PREVIEW
 
 }
 
-/* =========================================
+/* =========================================================
 IMPRESSÃO
-========================================= */
+========================================================= */
 
 @media print{
 
@@ -354,13 +487,10 @@ IMPRESSÃO
 
     .area{
         padding:0;
-        margin:0;
     }
 
     .cartaz{
-
         transform:none;
-
     }
 
 }
@@ -370,62 +500,79 @@ IMPRESSÃO
 
 <body>
 
-<!-- =========================================
+<!-- =========================================================
 PAINEL
-========================================= -->
+========================================================= -->
 
 <div class="painel">
 
     <div class="campo">
+
         <label>Oferta</label>
+
         <input
         type="text"
         id="oferta"
         value="OFERTA"
         oninput="atualizar()">
+
     </div>
 
     <div class="campo">
+
         <label>Produto</label>
+
         <input
         type="text"
         id="produto"
         value="COXÃO MOLE"
         oninput="atualizar()">
+
     </div>
 
     <div class="campo">
+
         <label>Complemento</label>
+
         <input
         type="text"
         id="complemento"
         value="BOVINO KG"
         oninput="atualizar()">
+
     </div>
 
     <div class="campo">
+
         <label>Preço</label>
+
         <input
         type="text"
         id="preco"
         value="35,90"
         oninput="atualizar()">
+
     </div>
 
     <div class="campo">
+
         <label>Loja</label>
+
         <input
         type="text"
         id="loja"
         value="IC ART'S"
         oninput="atualizar()">
+
     </div>
 
     <div class="campo">
 
         <label>Cor</label>
 
-        <select id="tema" onchange="trocarTema()">
+        <select
+        id="tema"
+        onchange="trocarTema()">
 
             <option value="vermelho">
                 Vermelho
@@ -453,27 +600,33 @@ PAINEL
 
 </div>
 
-<!-- =========================================
+<!-- =========================================================
 ÁREA
-========================================= -->
+========================================================= -->
 
 <div class="area">
 
-    <div class="cartaz vermelho" id="cartaz">
+<div
+class="cartaz vermelho"
+id="cartaz">
 
-        <!-- TOPO -->
+    <!-- TOPO -->
 
-        <div class="topo">
+    <div class="topo">
 
-            <h1 id="viewOferta">
-                OFERTA
-            </h1>
+        <h1 id="viewOferta">
+            OFERTA
+        </h1>
 
-        </div>
+    </div>
 
-        <!-- CONTEÚDO -->
+    <!-- CONTEÚDO -->
 
-        <div class="conteudo">
+    <div class="conteudo">
+
+        <!-- DESCRIÇÃO -->
+
+        <div class="descricao">
 
             <div
             class="produto"
@@ -495,7 +648,11 @@ PAINEL
 
             </div>
 
-            <!-- PREÇO -->
+        </div>
+
+        <!-- PREÇO -->
+
+        <div class="preco-area">
 
             <div class="pincel">
 
@@ -515,17 +672,17 @@ PAINEL
 
         </div>
 
-        <!-- RODAPÉ -->
+    </div>
 
-        <div class="rodape">
+    <!-- RODAPÉ -->
 
-            <div
-            class="loja"
-            id="viewLoja">
+    <div class="rodape">
 
-                IC ART'S
+        <div
+        class="loja"
+        id="viewLoja">
 
-            </div>
+            IC ART'S
 
         </div>
 
@@ -533,7 +690,13 @@ PAINEL
 
 </div>
 
+</div>
+
 <script>
+
+/* =========================================================
+ATUALIZAÇÃO
+========================================================= */
 
 function atualizar(){
 
@@ -553,6 +716,10 @@ function atualizar(){
     document.getElementById("loja").value;
 
 }
+
+/* =========================================================
+TEMA
+========================================================= */
 
 function trocarTema(){
 
