@@ -1,306 +1,115 @@
+\u003Chtml lang="pt-BR">\u003Chead>
+  \u003Cmeta charset="UTF-8">
+  \u003Cmeta name="viewport" content="width=device-width, initial-scale=1">
+  \u003Clink rel="profile" href="https://gmpg.org/xfn/11">
+  \u003Ctitle>Cartaz Fácil – Sistema para criação de Cartazes de Ofertas\u003C/title>
+  \u003Cmeta name="robots" content="max-image-preview:large">
+  \u003Clink rel="dns-prefetch" href="//stats.wp.com">
+  \u003Clink rel="dns-prefetch" href="//fonts.googleapis.com">
+  \u003Clink rel="alternate" type="application/rss+xml" title="Feed para Cartaz Fácil »" href="https://cartazfacil.com/feed/">
+  \u003Clink rel="alternate" type="application/rss+xml" title="Feed de comentários para Cartaz Fácil »" href="https://cartazfacil.com/comments/feed/">
+  \u003Clink rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://cartazfacil.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcartazfacil.com%2F">
+  \u003Clink rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://cartazfacil.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcartazfacil.com%2F&amp;format=xml">
+  \u003Cstyle id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+\u003C/style>
+  \u003Cstyle id="wp-emoji-styles-inline-css">
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreçoPlay - Gerador de Cartazes Profissional</title>
-    <style>
-        :root {
-            --amarelo-preco-play: #FFAA00;
-            --vermelho-preco-play: #D50000;
-            --preto-borda: #000000;
-        }
+\timg.wp-smiley, img.emoji {
+\t\tdisplay: inline !important;
+\t\tborder: none !important;
+\t\tbox-shadow: none !important;
+\t\theight: 1em !important;
+\t\twidth: 1em !important;
+\t\tmargin: 0 0.07em !important;
+\t\tvertical-align: -0.1em !important;
+\t\tbackground: none !important;
+\t\tpadding: 0 !important;
+\t}
+/*# sourceURL=wp-emoji-styles-inline-css */
+\u003C/style>
+  \u003Cstyle id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}.has-text-align-center{text-align:center}.has-text-align-left{text-align:left}.has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #1e222b;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* --- PAINEL DE CONTROLE (Sumiço na Impressão) --- */
-        #painel-controle {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            margin-bottom: 25px;
-            width: 100%;
-            max-width: 500px;
-            z-index: 10;
-        }
-
-        .campo {
-            margin-bottom: 12px;
-        }
-
-        .campo label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .campo input {
-            width: 100%;
-            padding: 10px;
-            font-size: 15px;
-            border: 2px solid #bdc3c7;
-            border-radius: 4px;
-        }
-
-        .campo input:focus {
-            border-color: var(--vermelho-preco-play);
-            outline: none;
-        }
-
-        button {
-            width: 100%;
-            background: var(--vermelho-preco-play);
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        button:hover {
-            background: #b30000;
-        }
-
-        /* --- O CARTAZ (Estilo Autêntico PreçoPlay) --- */
-        .preview-area {
-            background: #fff;
-            padding: 5px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-        }
-
-        #cartaz-a4 {
-            width: 210mm;
-            height: 297mm;
-            background-color: var(--amarelo-preco-play);
-            border: 14px solid var(--vermelho-preco-play);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 6px #ffffff; /* Linha branca interna clássica */
-        }
-
-        /* Header de Oferta Inclinado */
-        .tag-oferta {
-            background: var(--vermelho-preco-play);
-            color: #ffffff;
-            font-family: 'Impact', sans-serif;
-            font-size: 80px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 10px 90px;
-            letter-spacing: 4px;
-            transform: rotate(-3deg) skewX(-10deg);
-            box-shadow: 8px 8px 0px var(--preto-borda);
-            border: 4px solid #ffffff;
-            margin-top: 15px;
-            text-shadow: 3px 3px 0px var(--preto-borda);
-        }
-
-        /* Nome do Produto Centralizado com Destaque */
-        .bloco-produto {
-            width: 100%;
-            text-align: center;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 180px;
-        }
-
-        #exibir-produto {
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            font-size: 70px;
-            color: #ffffff;
-            text-transform: uppercase;
-            line-height: 0.95;
-            letter-spacing: 1px;
-            /* Efeito de contorno preto grosso de cartazeiro manual */
-            text-shadow: 
-                -4px -4px 0 var(--preto-borda),  
-                 4px -4px 0 var(--preto-borda),
-                -4px  4px 0 var(--preto-borda),
-                 4px  4px 0 var(--preto-borda),
-                 6px  8px 0px rgba(0,0,0,0.4);
-            word-wrap: break-word;
-            max-width: 95%;
-        }
-
-        /* Bloco de Preço Gigante do Varejo */
-        .bloco-preco {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            font-family: 'Impact', sans-serif;
-            color: var(--vermelho-preco-play);
-            /* Sombra projetada no preço */
-            filter: drop-shadow(6px 6px 0px var(--preto-borda));
-            margin-bottom: 25px;
-        }
-
-        .cifrao {
-            font-size: 90px;
-            margin-top: 15px;
-            margin-right: 2px;
-            letter-spacing: -5px;
-        }
-
-        .reais {
-            font-size: 330px;
-            line-height: 0.72;
-            letter-spacing: -12px;
-            font-weight: 900;
-        }
-
-        .lado-centavos {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-left: 5px;
-            margin-top: -5px;
-        }
-
-        .centavos {
-            font-size: 140px;
-            line-height: 0.75;
-            font-weight: 900;
-            letter-spacing: -4px;
-            border-bottom: 14px solid var(--vermelho-preco-play);
-            padding-bottom: 2px;
-        }
-
-        .unidade {
-            font-family: 'Arial Black', sans-serif;
-            font-size: 35px;
-            color: var(--preto-borda);
-            text-transform: uppercase;
-            margin-top: 15px;
-            font-weight: bold;
-            letter-spacing: -1px;
-        }
-
-        /* Rodapé com Grafismo de Faixas */
-        .rodape-decorativo {
-            width: 105%;
-            height: 25px;
-            background: repeating-linear-stripes(
-                -45deg,
-                var(--vermelho-preco-play),
-                var(--vermelho-preco-play) 20px,
-                #ffffff 20px,
-                #ffffff 40px
-            );
-            margin-bottom: -15px;
-            border-top: 4px solid var(--preto-borda);
-        }
-
-        /* --- CONFIGURAÇÃO DE IMPRESSÃO A4 --- */
-        @media print {
-            body {
-                background: #fff;
-                padding: 0;
-            }
-            #painel-controle {
-                display: none;
-            }
-            .preview-area {
-                padding: 0;
-                box-shadow: none;
-            }
-            #cartaz-a4 {
-                width: 210mm;
-                height: 297mm;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="painel-controle">
-        <div class="campo">
-            <label for="input-prod">Nome do Produto (Letras Garrafais)</label>
-            <input type="text" id="input-prod" value="SABÃO EM PÓ OMO LAVAGEM PERFEITA 1,6KG" oninput="atualizarGrade()">
-        </div>
-        <div class="campo">
-            <label for="input-reais">Preço (Inteiro)</label>
-            <input type="number" id="input-reais" value="19" oninput="atualizarGrade()">
-        </div>
-        <div class="campo">
-            <label for="input-centavos">Centavos</label>
-            <input type="text" id="input-centavos" value="98" maxlength="2" oninput="atualizarGrade()">
-        </div>
-        <div class="campo">
-            <label for="input-unidade">Unidade (Ex: CADA, KG, UN)</label>
-            <input type="text" id="input-unidade" value="CADA" oninput="atualizarGrade()">
-        </div>
-        <button onclick="window.print()">Imprimir Cartaz A4</button>
-    </div>
-
-    <div class="preview-area">
-        <div id="cartaz-a4">
-            <!-- Selo Superior -->
-            <div class="tag-oferta">OFERTA</div>
-            
-            <!-- Nome do Produto -->
-            <div class="bloco-produto">
-                <h1 id="exibir-produto">SABÃO EM PÓ OMO LAVAGEM PERFEITA 1,6KG</h1>
-            </div>
-            
-            <!-- Preço Estilo PreçoPlay -->
-            <div class="bloco-preco">
-                <span class="cifrao">R$</span>
-                <span class="reais" id="exibir-reais">19</span>
-                <div class="lado-centavos">
-                    <span class="centavos" id="exibir-centavos">98</span>
-                    <span class="unidade" id="exibir-unidade">CADA</span>
-                </div>
-            </div>
-
-            <!-- Faixa listrada de rodapé para fechar o layout -->
-            <div class="rodape-decorativo"></div>
-        </div>
-    </div>
-
-    <script>
-        function atualizarGrade() {
-            const produto = document.getElementById('input-prod').value;
-            const reais = document.getElementById('input-reais').value || '0';
-            let centavos = document.getElementById('input-centavos').value || '00';
-            const unidade = document.getElementById('input-unidade').value;
-
-            if(centavos.length === 1) centavos = centavos + '0';
-
-            document.getElementById('exibir-produto').innerText = produto;
-            document.getElementById('exibir-reais').innerText = reais;
-            document.getElementById('exibir-centavos').innerText = centavos;
-            document.getElementById('exibir-unidade').innerText = unidade;
-        }
-    </script>
-</body>
-</html>
-
+/*# sourceURL=wp-block-library-inline-css */
+\u003C/style>
+  \u003Cstyle id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--background: #ffffff;--wp--preset--color--foreground: #000000;--wp--preset--color--primary: #0071BC;--wp--preset--color--secondary: #FF5500;--wp--preset--color--tertiary: #FFED00;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:root { --wp--style--global--content-size: 80rem;--wp--style--global--wide-size: 60rem; }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}a:where(:not(.wp-element-button)){text-decoration: underline;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-background-color{color: var(--wp--preset--color--background) !important;}.has-foreground-color{color: var(--wp--preset--color--foreground) !important;}.has-primary-color{color: var(--wp--preset--color--primary) !important;}.has-secondary-color{color: var(--wp--preset--color--secondary) !important;}.has-tertiary-color{color: var(--wp--preset--color--tertiary) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-background-background-color{background-color: var(--wp--preset--color--background) !important;}.has-foreground-background-color{background-color: var(--wp--preset--color--foreground) !important;}.has-primary-background-color{background-color: var(--wp--preset--color--primary) !important;}.has-secondary-background-color{background-color: var(--wp--preset--color--secondary) !important;}.has-tertiary-background-color{background-color: var(--wp--preset--color--tertiary) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-background-border-color{border-color: var(--wp--preset--color--background) !important;}.has-foreground-border-color{border-color: var(--wp--preset--color--foreground) !important;}.has-primary-border-color{border-color: var(--wp--preset--color--primary) !important;}.has-secondary-border-color{border-color: var(--wp--preset--color--secondary) !important;}.has-tertiary-border-color{border-color: var(--wp--preset--color--tertiary) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+\u003C/style>
+  \u003Clink rel="stylesheet" id="fonts.roboto-css" href="https://fonts.googleapis.com/css2?family=Roboto%3Aital%2Cwght%400%2C100..900%3B1%2C100..900&amp;display=swap&amp;ver=6.9.1" media="all">
+  \u003Clink rel="stylesheet" id="_cartazfacil-style-css" href="https://cartazfacil.com/wp-content/themes/_cartazfacil/style.css?ver=1.2.6" media="all">
+  \u003Cscript src="https://cartazfacil.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js">\u003C/script>
+  \u003Cscript src="https://cartazfacil.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js">\u003C/script>
+  \u003Clink rel="https://api.w.org/" href="https://cartazfacil.com/wp-json/">
+  \u003Clink rel="alternate" title="JSON" type="application/json" href="https://cartazfacil.com/wp-json/wp/v2/pages/312">
+  \u003Clink rel="EditURI" type="application/rsd+xml" title="RSD" href="https://cartazfacil.com/xmlrpc.php?rsd">
+  \u003Cmeta name="generator" content="WordPress 6.9.1">
+  \u003Clink rel="canonical" href="https://cartazfacil.com/">
+  \u003Clink rel="shortlink" href="https://cartazfacil.com/">
+  \u003Cstyle>img#wpstats{display:none}\u003C/style>
+  \u003Cstyle type="text/css">.blue-message {
+    background-color: #3399ff;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}.green-message {
+    background-color: #8cc14c;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}.orange-message {
+    background-color: #faa732;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}.red-message {
+    background-color: #da4d31;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}.grey-message {
+    background-color: #53555c;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}.left-block {
+    background: radial-gradient(ellipse at center center, #ffffff 0%, #f2f2f2 100%);
+    color: #8b8e97;
+    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+   
