@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CartazFast - Editor</title>
+    <title>CartazFast - Editor Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Anton&display=swap" rel="stylesheet">
@@ -17,15 +17,12 @@
             --text-secondary: #94A3B8;
             --primary: #2563EB;
             --primary-hover: #1D4ED8;
+            --success: #16A34A;
+            --danger: #DC2626;
             --border: #334155;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
         body {
             background-color: var(--bg-general);
@@ -36,7 +33,6 @@
             overflow: hidden;
         }
 
-        /* Topbar */
         header {
             background-color: var(--bg-panel);
             padding: 1rem 2rem;
@@ -44,191 +40,231 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
+            z-index: 10;
         }
 
         .btn {
-            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s;
+            font-size: 0.9rem;
         }
-
-        .btn:hover { background-color: var(--primary-hover); }
+        .btn-primary { background-color: var(--primary); }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-success { background-color: var(--success); }
+        .btn-success:hover { background-color: #15803D; }
         .btn-secondary { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
         .btn-secondary:hover { background-color: #2d3748; color: white; }
+        .btn-danger { background-color: var(--danger); padding: 0.4rem 0.7rem; font-size: 0.8rem;}
 
-        /* Layout Split */
-        .main-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
+        .main-container { display: flex; flex: 1; overflow: hidden; }
 
-        /* Painel de Controle (Esquerdo) */
+        /* Painel Esquerdo */
         .control-panel {
-            width: 40%;
+            width: 35%;
             background-color: var(--bg-panel);
-            padding: 2rem;
+            padding: 1.5rem;
             overflow-y: auto;
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         .section-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-secondary);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             border-bottom: 1px solid var(--border);
             padding-bottom: 0.25rem;
+            font-weight: 700;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
         
         input[type="text"], input[type="number"], select {
             background-color: var(--bg-general);
             border: 1px solid var(--border);
             color: white;
-            padding: 0.75rem;
+            padding: 0.6rem;
             border-radius: 6px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
         }
-
         input:focus, select:focus { border-color: var(--primary); }
 
-        .price-row { display: flex; gap: 1rem; }
+        .price-row { display: flex; gap: 0.5rem; }
         .price-main { flex: 2; }
         .price-cents { flex: 1; }
 
-        /* Opções Visuais (Botões de seleção rápida) */
-        .radio-tile-group { display: flex; gap: 0.5rem; }
+        .radio-tile-group { display: flex; gap: 0.4rem; }
         .radio-tile {
             flex: 1;
             text-align: center;
-            padding: 0.75rem;
+            padding: 0.6rem;
             border: 1px solid var(--border);
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
+            background: var(--bg-general);
         }
-        .radio-tile.active {
-            background-color: var(--primary);
-            border-color: var(--primary);
+        .radio-tile.active { background-color: var(--primary); border-color: var(--primary); color: white;}
+
+        /* Lista / Fila de Produtos */
+        .product-list {
+            background: var(--bg-general);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 0.5rem;
         }
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        .product-item:last-child { border-bottom: none; }
 
         /* Área do Preview (Direita) */
         .preview-area {
-            width: 60%;
+            width: 65%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1.5rem;
             overflow: auto;
+            background-color: var(--bg-general);
         }
 
-        /* --- ESTILOS DO CARTAZ (MOCKUP REAL) --- */
-        /* O design do cartaz usa cores estouradas propositalmente (Varejo) */
-        .poster-mockup {
-            width: 420px; /* Proporção A4 */
-            height: 594px;
-            background-color: #FFE600; /* Amarelo tradicional padrão */
+        /* Container da Folha de Impressão */
+        .print-sheet {
+            background: #fff;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: grid;
+            gap: 0px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        /* Tamanhos da Folha Base baseados em proporção A4 (Modo Retrato padrão) */
+        .print-sheet.retrato { width: 420px; height: 594px; grid-template-columns: 100%; grid-template-rows: 100%; }
+        .print-sheet.paisagem { width: 594px; height: 420px; grid-template-columns: 100%; grid-template-rows: 100%; }
+        
+        /* Layout de 4 Cartazes por Folha */
+        .print-sheet.grid-4.retrato { grid-template-columns: 50% 50%; grid-template-rows: 50% 50%; }
+        .print-sheet.grid-4.paisagem { grid-template-columns: 50% 50%; grid-template-rows: 50% 50%; }
+
+        /* --- ESTILOS DO CARTAZ --- */
+        .poster {
+            background-color: #FFE600; /* Amarelo */
             color: #000000;
-            padding: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 1rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             text-align: center;
             position: relative;
-            transition: background-color 0.3s;
-            border: 15px solid #FF0000; /* Borda vermelha de oferta */
+            border: 12px solid #FF0000; /* Borda Vermelha Padrão */
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
         }
 
-        /* Variações do Cartaz */
-        .poster-mockup.bg-vermelho { background-color: #E11D48; color: #FFFFFF; border-color: #FFE600; }
-        .poster-mockup.bg-branco { background-color: #FFFFFF; color: #000000; border-color: #1E293B; }
-        .poster-mockup.no-border { border: none; }
+        /* Variações de Cores pedidas */
+        .poster.bg-amarelo { background-color: #FFE600; color: #000; border-color: #FF0000; }
+        .poster.bg-vermelho { background-color: #E11D48; color: #FFF; border-color: #FFE600; }
+        .poster.bg-branco-vermelho { background-color: #FFFFFF; color: #000; border-color: #FF0000; } /* Branco com borda vermelha */
 
-        /* Tipografias do Cartaz */
-        .poster-mockup.font-letrista { font-family: 'Permanent Marker', cursive; }
-        .poster-mockup.font-impact { font-family: 'Anton', sans-serif; }
+        /* Fontes */
+        .poster.font-letrista { font-family: 'Permanent Marker', cursive; }
+        .poster.font-impact { font-family: 'Anton', sans-serif; }
 
         .poster-header {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
             background: #FF0000;
             color: white;
-            padding: 0.2rem 2rem;
+            padding: 0.1rem 1.5rem;
             transform: skewX(-10deg);
-            margin-top: 1rem;
+            margin-top: 0.2rem;
         }
         .bg-vermelho .poster-header { background: #FFE600; color: black; }
-        .bg-branco .poster-header { background: #000; color: white; }
+        .bg-branco-vermelho .poster-header { background: #FF0000; color: white; }
 
         .poster-product {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             line-height: 1.1;
             text-transform: uppercase;
-            word-break: break-word;
             margin: auto 0;
-            max-height: 120px;
-            overflow: hidden;
         }
 
         .poster-price-container {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            font-family: 'Anton', sans-serif; /* Preço sempre impactante */
+            font-family: 'Anton', sans-serif;
             line-height: 0.8;
             margin-bottom: auto;
         }
 
-        .poster-currency { font-size: 2.5rem; margin-right: 0.5rem; margin-top: 1rem; }
-        .poster-price-main { font-size: 9rem; font-weight: bold; }
+        .poster-currency { font-size: 1.5rem; margin-right: 0.2rem; margin-top: 0.5rem; }
+        .poster-price-main { font-size: 6.5rem; font-weight: bold; }
         .poster-price-cents-box { display: flex; flex-direction: column; align-items: flex-start; }
-        .poster-price-cents { font-size: 4rem; font-weight: bold; text-decoration: underline; }
-        .poster-unit { font-size: 1.5rem; text-transform: uppercase; font-weight: bold; margin-top: 0.5rem;}
+        .poster-price-cents { font-size: 3rem; font-weight: bold; text-decoration: underline; }
+        .poster-unit { font-size: 1.1rem; text-transform: uppercase; font-weight: bold; margin-top: 0.2rem;}
 
         .poster-footer {
-            font-size: 1rem;
+            font-size: 0.8rem;
             font-weight: 700;
             border-top: 2px dashed rgba(0,0,0,0.2);
             width: 100%;
-            padding-top: 1rem;
+            padding-top: 0.5rem;
             text-transform: uppercase;
         }
-        .bg-vermelho .poster-footer { border-top-color: rgba(255,255,255,0.3); }
+        
+        /* Ajustes finos quando há 4 cartazes na folha (Fontes menores para caber) */
+        .grid-4 .poster { border-width: 6px; padding: 0.5rem; }
+        .grid-4 .poster-header { font-size: 1.1rem; }
+        .grid-4 .poster-product { font-size: 1.1rem; }
+        .grid-4 .poster-price-main { font-size: 3.8rem; }
+        .grid-4 .poster-price-cents { font-size: 1.8rem; }
+        .grid-4 .poster-currency { font-size: 1rem; }
+        .grid-4 .poster-unit { font-size: 0.8rem; }
+        .grid-4 .poster-footer { font-size: 0.6rem; }
 
-        /* Esconder selo se desativado */
         .hidden { display: none !important; }
+
+        /* --- REGRAS DE IMPRESSÃO NATIVA --- */
+        @media print {
+            body *, header, .control-panel { display: none !important; }
+            body, .main-container, .preview-area { background: #fff !important; padding: 0 !important; margin: 0 !important; height: 100vh !important; width: 100vw !important; display: flex !important; justify-content: center !important; align-items: center !important; }
+            .print-sheet { border: none !important; box-shadow: none !important; width: 100vw !important; height: 100vh !important; display: grid !important; }
+            @page { margin: 0; }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <button class="btn btn-secondary">← Voltar</button>
-        <div style="font-weight: 600;">Editor de Cartazes</div>
-        <button class="btn" onclick="alert('Indo para a tela de Impressão/Exportação!')">Avançar para Impressão →</button>
+        <div style="font-weight: 600;">Editor de Cartazes Pro</div>
+        <button class="btn btn-success" onclick="window.print()">🖨️ Imprimir Folha Atual</button>
     </header>
 
     <div class="main-container">
@@ -236,173 +272,213 @@
         <aside class="control-panel">
             
             <div>
-                <div class="section-title">1. Formato do Papel</div>
+                <div class="section-title">1. Configuração da Folha</div>
+                <div class="form-group" style="margin-bottom: 0.8rem;">
+                    <label>Orientação da Página</label>
+                    <div class="radio-tile-group">
+                        <div id="opt-retrato" class="radio-tile active" onclick="setOrientacao('retrato')">Retrato (Em pé)</div>
+                        <div id="opt-paisagem" class="radio-tile" onclick="setOrientacao('paisagem')">Paisagem (Deitado)</div>
+                    </div>
+                </div>
                 <div class="form-group">
-                    <select id="input-size">
-                        <option value="a4">A4 (Sulfite Padrão)</option>
-                        <option value="a3">A3 (Cartaz Grande)</option>
-                        <option value="a5">A5 (Mini Oferta)</option>
-                    </select>
+                    <label>Quantidade por Folha</label>
+                    <div class="radio-tile-group">
+                        <div id="opt-qtd-1" class="radio-tile active" onclick="setLayoutQtd(1)">1 Grande</div>
+                        <div id="opt-qtd-4" class="radio-tile" onclick="setLayoutQtd(4)">4 Pequenos</div>
+                    </div>
                 </div>
             </div>
 
             <div>
-                <div class="section-title">2. Informações do Produto</div>
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label for="input-name">Nome do Produto</label>
-                    <input type="text" id="input-name" value="Arroz Tipo 1 5kg" placeholder="Ex: Óleo de Soja 900ml">
+                <div class="section-title">2. Produto Atual</div>
+                <div class="form-group" style="margin-bottom: 0.6rem;">
+                    <label>Nome do Produto</label>
+                    <input type="text" id="input-name" value="Arroz Tipo 1 5kg">
                 </div>
                 
-                <div class="price-row" style="margin-bottom: 1rem;">
+                <div class="price-row" style="margin-bottom: 0.6rem;">
                     <div class="form-group price-main">
-                        <label for="input-price">Preço R$</label>
-                        <input type="number" id="input-price" value="19" placeholder="19">
+                        <label>Preço R$</label>
+                        <input type="number" id="input-price" value="19">
                     </div>
                     <div class="form-group price-cents">
-                        <label for="input-cents">Centavos</label>
-                        <input type="text" id="input-cents" value="98" maxlength="2" placeholder="99">
+                        <label>Centavos</label>
+                        <input type="text" id="input-cents" value="98" maxlength="2">
                     </div>
                 </div>
 
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label for="input-unit">Unidade de Medida</label>
-                    <select id="input-unit">
-                        <option value="Un">Unidade (Un)</option>
-                        <option value="Kg" selected>Quilo (Kg)</option>
-                        <option value="L">Litro (L)</option>
-                    </select>
+                <div class="price-row" style="margin-bottom: 0.6rem;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Unidade</label>
+                        <select id="input-unit">
+                            <option value="Un">Un</option>
+                            <option value="Kg" selected>Kg</option>
+                            <option value="L">Litro</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex:2;">
+                        <label>Texto Rodapé</label>
+                        <input type="text" id="input-footer" value="Máximo 3 un por cliente">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; margin-top: 0.4rem;" onclick="adicionarProdutoDaqui()">
+                    ➕ Adicionar à Fila de Impressão
+                </button>
+            </div>
+
+            <div>
+                <div class="section-title">3. Estilo do Cartaz</div>
+                
+                <div class="form-group" style="margin-bottom: 0.6rem;">
+                    <label>Cor do Fundo / Borda</label>
+                    <div class="radio-tile-group">
+                        <div id="opt-bg-amarelo" class="radio-tile active" onclick="setVisualBg('amarelo')">Amarelo</div>
+                        <div id="opt-bg-vermelho" class="radio-tile" onclick="setVisualBg('vermelho')">Vermelho</div>
+                        <div id="opt-bg-branco" class="radio-tile" onclick="setVisualBg('branco-vermelho')">Branco/Vermelho</div>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="input-footer">Texto Adicional / Rodapé</label>
-                    <input type="text" id="input-footer" value="Apenas 3 unidades por cliente" placeholder="Ex: Validade: 30/12">
+                    <label>Estilo de Letra</label>
+                    <div class="radio-tile-group">
+                        <div id="opt-font-letrista" class="radio-tile active" onclick="setVisualFont('letrista')">Letrista</div>
+                        <div id="opt-font-impact" class="radio-tile" onclick="setVisualFont('impact')">Impact</div>
+                    </div>
                 </div>
             </div>
 
             <div>
-                <div class="section-title">3. Estilo Visual</div>
-                
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label>Cor de Fundo</label>
-                    <div class="radio-tile-group">
-                        <div class="radio-tile active" onclick="changeBg('amarelo', this)">Amarelo</div>
-                        <div class="radio-tile" onclick="changeBg('vermelho', this)">Vermelho</div>
-                        <div class="radio-tile" onclick="changeBg('branco', this)">Branco</div>
+                <div class="section-title">4. Fila / Lista de Produtos (<span id="count-fila">1</span>)</div>
+                <div class="product-list" id="lista-produtos-ui">
                     </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label>Estilo da Fonte</label>
-                    <div class="radio-tile-group">
-                        <div class="radio-tile active" onclick="changeFont('letrista', this)">Letrista</div>
-                        <div class="radio-tile" onclick="changeFont('impact', this)">Impact</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Selo de Destaque</label>
-                    <div class="radio-tile-group">
-                        <div class="radio-tile active" onclick="toggleSelo(true, this)">Com Selo</div>
-                        <div class="radio-tile" onclick="toggleSelo(false, this)">Sem Selo</div>
-                    </div>
-                </div>
             </div>
 
         </aside>
 
         <main class="preview-area">
-            
-            <div id="poster" class="poster-mockup font-letrista">
-                <div id="poster-selo" class="poster-header">OFERTA</div>
-                <div id="poster-name" class="poster-product">Arroz Tipo 1 5kg</div>
-                
-                <div class="poster-price-container">
-                    <span class="poster-currency">R$</span>
-                    <span id="poster-price-main" class="poster-price-main">19</span>
-                    <div class="poster-price-cents-box">
-                        <span id="poster-price-cents" class="poster-price-cents">,98</span>
-                        <span id="poster-unit" class="poster-unit">/Kg</span>
-                    </div>
+            <div id="print-sheet" class="print-sheet retrato">
                 </div>
-
-                <div id="poster-footer" class="poster-footer">Apenas 3 unidades por cliente</div>
-            </div>
-
         </main>
     </div>
 
     <script>
-        // Mapeamento dos inputs da UI para os elementos do Cartaz
-        const inputs = {
-            name: document.getElementById('input-name'),
-            price: document.getElementById('input-price'),
-            cents: document.getElementById('input-cents'),
-            unit: document.getElementById('input-unit'),
-            footer: document.getElementById('input-footer')
+        // Estado Global da Aplicação
+        let configuracao = {
+            orientacao: 'retrato', // retrato ou paisagem
+            layoutQtd: 1,          // 1 ou 4 por folha
+            bgEstilo: 'bg-amarelo',
+            fontEstilo: 'font-letrista'
         };
 
-        const posterElements = {
-            name: document.getElementById('poster-name'),
-            priceMain: document.getElementById('poster-price-main'),
-            priceCents: document.getElementById('poster-price-cents'),
-            unit: document.getElementById('poster-unit'),
-            footer: document.getElementById('poster-footer')
-        };
+        // Banco de dados em memória contendo a lista/fila de produtos inseridos
+        let filaProdutos = [
+            { name: "Arroz Tipo 1 5kg", price: "19", cents: "98", unit: "Kg", footer: "Máximo 3 un por cliente" }
+        ];
 
-        // Função de atualização em tempo real
-        function updatePoster() {
-            posterElements.name.innerText = inputs.name.value || "NOME DO PRODUTO";
-            posterElements.priceMain.innerText = inputs.price.value || "0";
-            
-            // Garante que o formato dos centavos sempre tenha a vírgula visível
-            let centsVal = inputs.cents.value;
-            if(centsVal && !centsVal.startsWith(',')) centsVal = ',' + centsVal;
-            posterElements.priceCents.innerText = centsVal || ",00";
-            
-            posterElements.unit.innerText = '/' + inputs.unit.value;
-            posterElements.footer.innerText = inputs.footer.value || "";
-        }
+        // Elementos de input da interface
+        const inputName = document.getElementById('input-name');
+        const inputPrice = document.getElementById('input-price');
+        const inputCents = document.getElementById('input-cents');
+        const inputUnit = document.getElementById('input-unit');
+        const inputFooter = document.getElementById('input-footer');
+        const sheetElement = document.getElementById('print-sheet');
 
-        // Adiciona ouvintes de eventos para atualizar a cada tecla digitada
-        Object.keys(inputs).forEach(key => {
-            inputs[key].addEventListener('input', updatePoster);
+        // Escuta digitação em tempo real para atualizar o primeiro cartaz da preview imediatamente
+        [inputName, inputPrice, inputCents, inputUnit, inputFooter].forEach(input => {
+            input.addEventListener('input', () => {
+                if(filaProdutos.length > 0) {
+                    filaProdutos[0] = {
+                        name: inputName.value,
+                        price: inputPrice.value,
+                        cents: inputCents.value,
+                        unit: inputUnit.value,
+                        footer: inputFooter.value
+                    };
+                    renderizarFolha();
+                    renderizarListaUI();
+                }
+            });
         });
 
-        // Alternadores de Estilo (Fundo)
-        function changeBg(color, element) {
-            const poster = document.getElementById('poster');
-            poster.classList.remove('bg-vermelho', 'bg-branco');
-            if(color === 'vermelho') poster.classList.add('bg-vermelho');
-            if(color === 'branco') poster.classList.add('bg-branco');
-            
-            clearActive(element);
+        function adicionarProdutoDaqui() {
+            filaProdutos.push({
+                name: inputName.value,
+                price: inputPrice.value,
+                cents: inputCents.value,
+                unit: inputUnit.value,
+                footer: inputFooter.value
+            });
+            renderizarFolha();
+            renderizarListaUI();
         }
 
-        // Alternadores de Estilo (Fonte)
-        function changeFont(font, element) {
-            const poster = document.getElementById('poster');
-            poster.classList.remove('font-letrista', 'font-impact');
-            poster.classList.add('font-' + font);
-            
-            clearActive(element);
+        function removerProduto(index) {
+            filaProdutos.splice(index, 1);
+            renderizarFolha();
+            renderizarListaUI();
         }
 
-        // Ativar/Desativar Selo Superior
-        function toggleSelo(show, element) {
-            const selo = document.getElementById('poster-selo');
-            if(show) selo.classList.remove('hidden');
-            else selo.classList.add('hidden');
-            
-            clearActive(element);
+        // Altera a orientação (Retrato / Paisagem)
+        function setOrientacao(tipo) {
+            configuracao.orientacao = tipo;
+            document.getElementById('opt-retrato').classList.toggle('active', tipo === 'retrato');
+            document.getElementById('opt-paisagem').classList.toggle('active', tipo === 'paisagem');
+            renderizarFolha();
         }
 
-        // Utilitário para gerenciar classe ativa nos botões da interface
-        function clearActive(element) {
-            const parent = element.parentElement;
-            const buttons = parent.querySelectorAll('.radio-tile');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
+        // Altera a divisão da folha (1 ou 4 cartazes)
+        function setLayoutQtd(qtd) {
+            configuracao.layoutQtd = qtd;
+            document.getElementById('opt-qtd-1').classList.toggle('active', qtd === 1);
+            document.getElementById('opt-qtd-4').classList.toggle('active', qtd === 4);
+            renderizarFolha();
         }
-    </script>
-</body>
-</html>
+
+        // Altera cores de fundo
+        function setVisualBg(cor) {
+            configuracao.bgEstilo = 'bg-' + cor;
+            ['amarelo', 'vermelho', 'branco'].forEach(c => {
+                document.getElementById('opt-bg-' + c).classList.toggle('active', c === cor);
+            });
+            renderizarFolha();
+        }
+
+        // Altera o estilo da fonte
+        function setVisualFont(fonte) {
+            configuracao.fontEstilo = 'font-' + fonte;
+            document.getElementById('opt-font-letrista').classList.toggle('active', fonte === 'letrista');
+            document.getElementById('opt-font-impact').classList.toggle('active', fonte === 'impact');
+            renderizarFolha();
+        }
+
+        // Renderiza visualmente a folha e distribui os cartazes nela
+        function renderizarFolha() {
+            // Atualiza classes da folha container
+            sheetElement.className = `print-sheet ${configuracao.orientacao}`;
+            if(configuracao.layoutQtd === 4) {
+                sheetElement.classList.add('grid-4');
+            }
+
+            sheetElement.innerHTML = '';
+            
+            // Define quantos cartazes vamos exibir na folha física atual
+            let limite = configuracao.layoutQtd;
+            
+            for(let i = 0; i < limite; i++) {
+                // Se não houver produto na fila para preencher o espaço, cria um modelo genérico vazio
+                let prod = filaProdutos[i] || { name: "Espaço Vazio", price: "00", cents: "00", unit: "un", footer: "" };
+                
+                let formatCents = prod.cents;
+                if(formatCents && !formatCents.startsWith(',')) formatCents = ',' + formatCents;
+
+                let posterHTML = `
+                    <div class="poster ${configuracao.bgEstilo} ${configuracao.fontEstilo}">
+                        <div class="poster-header">OFERTA</div>
+                        <div class="poster-product">${prod.name || 'PRODUTO'}</div>
+                        <div class="poster-price-container">
+                            <span class="poster-currency">R$</span>
+                            <span class="poster-price-main">${prod.price || '0'}</span>
+                            <div class="poster-price-cents-box">
+                                <span class="poster-price-cents">${formatCents || ',00'}</span>
+                                <span class="poster-unit">
