@@ -3,219 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Cartazes de Oferta</title>
+    <title>Cartazista Pro — Gerador de Cartazes</title>
+    <!-- Importação de fontes grossas de impacto de encarte -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        /* Configurações de Design Gerais */
-        body {
-            font-family: 'Arial Black', Gadget, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #0d6efd;
-            margin-top: 0;
-        }
-        p {
-            font-family: Arial, sans-serif;
-            color: #666;
-            line-height: 1.5;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 12px;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            resize: vertical;
-            font-family: monospace;
-        }
-        button {
-            background-color: #ffcc00;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 4px;
-            margin-top: 15px;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background-color: #e6b800;
+        /* Cores inspiradas no Cartazista original */
+        :root {
+            --bg-principal: #0b1528;
+            --bg-paineis: #14223c;
+            --cor-primaria: #0284c7;
+            --amarelo-cartaz: #fed7aa;
         }
 
-        /* Área de Impressão dos Cartazes */
-        #previewArea {
-            margin-top: 30px;
+        * { box-sizing: border-box; font-family: 'Barlow Condensed', sans-serif; }
+
+        body {
+            background-color: var(--bg-principal);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .cartaz {
-            background-color: #ffcc00; /* Cor amarela clássica de encarte */
-            border: 15px solid #ff0000; /* Borda vermelha chamativa */
-            border-radius: 10px;
+
+        /* Topo da ferramenta */
+        header {
+            background-color: var(--bg-paineis);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #1e293b;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+
+        /* Layout em 2 colunas (Painel e Preview) */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Coluna da Esquerda: Configurações */
+        .painel-controle {
+            width: 400px;
+            background-color: var(--bg-paineis);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-right: 2px solid #1e293b;
+            overflow-y: auto;
+        }
+
+        label {
+            font-size: 16px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        textarea {
             width: 100%;
-            max-width: 500px;
-            height: 700px;
-            margin: 0 auto 40px auto;
-            box-sizing: border-box;
-            padding: 30px;
+            height: 180px;
+            background-color: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 6px;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            font-family: monospace;
+            resize: none;
+        }
+        textarea:focus { border-color: var(--cor-primaria); outline: none; }
+
+        .btn-principal {
+            background-color: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        .btn-principal:hover { background-color: #0284c7; }
+
+        /* Coluna da Direita: Visualização dos Cartazes reais */
+        .painel-preview {
+            flex: 1;
+            background-color: #0f172a;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-content: flex-start;
+        }
+
+        /* O CARTAZ DE PREÇO (Estilo Supermercado) */
+        .cartaz-bloco {
+            background-color: #ffe600; /* Amarelo Limão tradicional */
+            border: 14px solid #e11d48; /* Borda Vermelha de Impacto */
+            width: 320px;
+            height: 450px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            padding: 20px;
             text-align: center;
             text-transform: uppercase;
-        }
-        .topo-promocao {
-            background-color: #ff0000;
-            color: #fff;
-            font-size: 38px;
-            font-weight: 900;
-            width: 105%;
-            padding: 10px 0;
-            margin-top: -15px;
-            transform: rotate(-2deg);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .produto-nome {
-            font-size: 42px;
-            color: #000;
-            line-height: 1.1;
-            word-wrap: break-word;
-            margin: auto 0;
-            max-height: 250px;
-            overflow: hidden;
-        }
-        .bloco-preco {
-            width: 100%;
-        }
-        .cifrão {
-            font-size: 32px;
-            color: #ff0000;
-            vertical-align: top;
-            margin-right: 5px;
-        }
-        .preco-inteiro {
-            font-size: 120px;
-            color: #ff0000;
-            line-height: 0.8;
-            font-weight: 900;
-        }
-        .preco-centavos {
-            font-size: 55px;
-            color: #ff0000;
-            vertical-align: top;
-            line-height: 1;
+            position: relative;
         }
 
-        /* Estilos de Ocultação para o Navegador vs Impressão */
+        .cartaz-header {
+            background-color: #e11d48;
+            color: #fff;
+            font-size: 28px;
+            font-family: 'Bebas Neue', sans-serif;
+            width: 108%;
+            padding: 6px 0;
+            margin-top: -10px;
+            transform: rotate(-1.5deg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            letter-spacing: 2px;
+        }
+
+        .cartaz-produto {
+            color: #000;
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1;
+            margin: auto 0;
+            word-wrap: break-word;
+            max-height: 160px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        .cartaz-preco-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: #e11d48;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .rs { font-size: 24px; margin-top: 15px; margin-right: 4px; font-weight: bold;}
+        .preco-reais { font-size: 115px; line-height: 0.85; font-weight: 900; }
+        .preco-centavos { font-size: 50px; line-height: 0.85; margin-top: 5px; font-weight: bold; }
+
+        /* REGRAS EXCLUSIVAS DE IMPRESSÃO - Esconde o Painel Azul */
         @media print {
-            body {
-                background: none;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-                padding: 0;
-                max-width: 100%;
-            }
-            .no-print {
-                display: none !important;
-            }
-            .cartaz {
+            .no-print, header, .painel-controle { display: none !important; }
+            body, .workspace, .painel-preview { background: none; padding: 0; margin: 0; display: block; overflow: visible; }
+            .cartaz-bloco {
                 margin: 0 auto;
-                page-break-after: always; /* Quebra de página automática para cada cartaz */
+                page-break-after: always; /* Cada cartaz vai para uma folha separada */
+                width: 100%;
+                height: 96vh; /* Ocupa a folha A4 inteira vertical */
                 border-width: 25px;
-                max-width: 100%;
-                height: 98vh; /* Ocupa quase toda a folha A4 vertical */
+                box-shadow: none;
             }
+            .preco-reais { font-size: 240px; }
+            .preco-centavos { font-size: 100px; }
+            .cartaz-produto { font-size: 65px; }
+            .cartaz-header { font-size: 55px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="no-print">
-            <h1>Gerador Automático de Cartazes</h1>
-            <p>Cole sua lista de ofertas abaixo. Digite o <strong>nome do produto</strong> e o <strong>preço</strong> separados por vírgula (um item por linha).</p>
-            <p><em>Exemplo:<br>Arroz Integral Tio João 5kg, 24.90<br>Leite Integral Piracanjuba 1L, 4.59</em></p>
+    <header>
+        <h1>CARTAZISTA PRO</h1>
+    </header>
+
+    <div class="workspace">
+        <!-- Esquerda: Entradas do Usuário -->
+        <div class="painel-controle no-print">
+            <div>
+                <label>Lista de Ofertas (Produto, Preço)</label>
+                <p style="font-size:13px; color:#64748b; margin: 5px 0 10px 0;">Organize separando por vírgula como no modelo:</p>
+                <textarea id="inputLista">Detergente Ypê 500ml, 2.49&#10;Feijão Carioca Kicaldo 1kg, 7.89&#10;Cerveja Skol Lata 350ml, 3.19</textarea>
+            </div>
             
-            <textarea id="listaProdutos" placeholder="Produto Exemplo 1kg, 9.99&#10;Outro Produto Unid, 14.50"></textarea>
-            <button onclick="gerarCartazes()">Gerar Cartazes e Imprimir</button>
+            <button class="btn-principal" onclick="window.print()">Imprimir Cartazes</button>
         </div>
 
-        <div id="previewArea"></div>
+        <!-- Direita: Renderização Dinâmica em Tempo Real -->
+        <div class="painel-preview" id="espacoCartazes">
+            <!-- Os cartazes gerados via JavaScript entrarão aqui automaticamente -->
+        </div>
     </div>
 
     <script>
-        function gerarCartazes() {
-            const txt = document.getElementById('listaProdutos').value;
-            const linhas = txt.split('\n');
-            const previewArea = document.getElementById('previewArea');
-            
-            // Limpa gerações anteriores
-            previewArea.innerHTML = '';
-            let temCartaz = false;
+        const inputLista = document.getElementById('inputLista');
+        const espacoCartazes = document.getElementById('espacoCartazes');
+
+        function atualizarCartazes() {
+            const texto = inputLista.value;
+            const linhas = texto.split('\n');
+            espacoCartazes.innerHTML = ''; // Limpa o painel visual
 
             linhas.forEach(linha => {
-                if (!linha.trim() || !linha.includes(',')) return;
+                if(!linha.trim() || !linha.includes(',')) return;
 
-                // Divide o nome do produto e o preço pela vírgula
                 const partes = linha.split(',');
-                const nome = partes[0].trim();
-                const precoString = partes[1].trim();
+                const nomeProduto = partes[0].trim();
+                const valorBruto = partes[1].trim();
 
-                // Converte e valida o preço flutuante
-                const precoNum = parseFloat(precoString.replace(/[^\d.]/g, ''));
-                if (isNaN(precoNum)) return;
+                // Formatação correta do número de preço
+                const precoLimpo = parseFloat(valorBruto.replace(/[^\d.]/g, ''));
+                if (isNaN(precoLimpo)) return;
 
-                temCartaz = true;
+                const precoFinal = precoLimpo.toFixed(2);
+                const [reais, centavos] = precoFinal.split('.');
 
-                // Separa reais de centavos para estilização grande do PDV
-                const valorFixo = precoNum.toFixed(2);
-                const [inteiro, centavos] = valorFixo.split('.');
-
-                // Montagem da estrutura HTML do cartaz estruturado
-                const cartazDiv = document.createElement('div');
-                cartazDiv.className = 'cartaz';
-                
-                cartazDiv.innerHTML = `
-                    <div class="topo-promocao">OFERTA</div>
-                    <div class="produto-nome">${nome}</div>
-                    <div class="bloco-preco">
-                        <span class="cifrão">R$</span><span class="preco-inteiro">${inteiro}</span><span class="preco-centavos">,${centavos}</span>
+                // Estrutura visual elegante do cartaz de supermercado
+                const card = document.createElement('div');
+                card.className = 'cartaz-bloco';
+                card.innerHTML = `
+                    <div class="cartaz-header">OFERTA ESPECIAL</div>
+                    <div class="cartaz-produto">${nomeProduto}</div>
+                    <div class="cartaz-preco-container">
+                        <span class="rs">R$</span>
+                        <span class="preco-reais">${reais}</span>
+                        <span class="preco-centavos">,${centavos}</span>
                     </div>
                 `;
-                
-                previewArea.appendChild(cartazDiv);
+                espacoCartazes.appendChild(card);
             });
-
-            // Dispara o comando de impressão do sistema se houver conteúdo válido
-            if (temCartaz) {
-                // Pequeno delay para garantir que o DOM renderizou antes de abrir o gerenciador
-                setTimeout(() => {
-                    window.print();
-                }, 300);
-            } else {
-                alert('Por favor, insira ao menos um produto válido com preço separado por vírgula.');
-            }
         }
+
+        // Evento que escuta o teclado e gera o cartaz NA HORA enquanto o usuário digita
+        inputLista.addEventListener('input', atualizarCartazes);
+
+        // Executa uma vez ao abrir o site para carregar os exemplos padrão
+        atualizarCartazes();
     </script>
 
 </body>
 </html>
-
