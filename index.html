@@ -3,267 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cartazista Pro</title>
-    <!-- Fontes ultra grossas e condensadas de supermercado -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    <title>Cartazista Simples</title>
     <style>
-        :root {
-            --bg-dark: #0a111e;
-            --bg-card: #131c2e;
-            --accent-blue: #0ea5e9;
-        }
-
-        * { box-sizing: border-box; font-family: 'Barlow Condensed', sans-serif; }
-
+        /* Layout Geral (Preto e Azul) */
         body {
-            background-color: var(--bg-dark);
+            font-family: 'Arial Black', sans-serif;
+            background-color: #0b132b;
             color: #ffffff;
             margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 15px;
         }
-
-        header {
-            background-color: var(--bg-card);
-            padding: 15px 30px;
-            border-bottom: 2px solid #1e293b;
+        .painel {
+            background-color: #1c2541;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: var(--accent-blue);
-            letter-spacing: 1px;
-            font-family: 'Bebas Neue', sans-serif;
-        }
-
-        .workspace {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* Painel do Usuário (Esquerda) */
-        .painel-lateral {
-            width: 360px;
-            background-color: var(--bg-card);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            border-right: 2px solid #1e293b;
-            overflow-y: auto;
-        }
-
-        label {
-            font-size: 14px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
         textarea {
             width: 100%;
-            height: 250px;
-            background-color: #070d19;
-            border: 2px solid #273549;
-            border-radius: 6px;
-            color: #fff;
-            padding: 12px;
+            height: 120px;
             font-size: 16px;
-            font-family: monospace;
-            resize: none;
-        }
-        textarea:focus { border-color: var(--accent-blue); outline: none; }
-
-        .btn-print {
-            background-color: #22c55e;
-            color: #fff;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 4px;
             border: none;
-            padding: 14px;
+            margin-top: 10px;
+        }
+        button {
+            width: 100%;
+            background-color: #22c55e;
+            color: white;
+            padding: 12px;
+            border: none;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 4px;
+            margin-top: 10px;
             cursor: pointer;
-            text-transform: uppercase;
         }
 
-        /* Área dos Cartazes (Direita) */
-        .painel-visualizacao {
-            flex: 1;
-            background-color: #070d19;
-            padding: 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            justify-content: center;
-            align-content: flex-start;
-        }
-
-        /* O CARTAZ DE PREÇO (Inspirado no Cartazista.online) */
-        .cartaz-bloco {
-            background-color: #ffeb00; /* Amarelo forte */
-            width: 320px;
-            height: 460px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* O Cartaz (Amarelo e Vermelho) */
+        .area-cartazes {
             display: flex;
             flex-direction: column;
+            gap: 20px;
             align-items: center;
-            justify-content: space-between;
+        }
+        .cartaz {
+            background-color: #ffea00;
+            border: 12px solid #ff0000;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 320px;
             padding: 20px;
+            box-sizing: border-box;
             text-align: center;
             text-transform: uppercase;
-            position: relative;
         }
-
-        /* Faixa Vermelha Inclinada */
-        .cartaz-tag {
+        .oferta {
             background-color: #ff0000;
-            color: #ffffff;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 36px;
-            width: 115%;
-            padding: 8px 0;
-            margin-top: -5px;
-            transform: rotate(-3deg);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            letter-spacing: 1px;
+            color: white;
+            font-size: 28px;
+            padding: 5px;
+            transform: rotate(-2deg);
+            margin-bottom: 20px;
         }
-
-        /* Produto centralizado e gigante */
-        .cartaz-titulo {
+        .produto {
             color: #000000;
-            font-size: 40px;
+            font-size: 32px;
+            line-height: 1.1;
+            margin: 20px 0;
             font-weight: 900;
-            line-height: 0.95;
-            margin: auto 0;
-            word-wrap: break-word;
-            width: 100%;
         }
-
-        /* Bloco de Preço com Centavos no Topo */
-        .cartaz-preco-wrapper {
+        .preco-container {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Alinha tudo por cima */
+            align-items: flex-start;
             color: #ff0000;
-            font-family: 'Bebas Neue', sans-serif;
-            width: 100%;
-            margin-bottom: 10px;
         }
-
-        .cartaz-rs {
-            font-size: 26px;
-            font-weight: 900;
+        .cifrao {
+            font-size: 20px;
             margin-top: 10px;
             margin-right: 2px;
         }
-
-        .cartaz-reais {
-            font-size: 150px;
+        .reais {
+            font-size: 110px;
             line-height: 0.8;
             font-weight: 900;
         }
-
-        .cartaz-centavos {
-            font-size: 65px;
+        .centavos {
+            font-size: 50px;
             line-height: 0.8;
-            font-weight: 900;
             margin-top: 8px;
         }
 
-        /* CONFIGURAÇÕES DE IMPRESSÃO (Esconde o menu azul) */
+        /* Configuração de Impressão */
         @media print {
-            .no-print, header, .painel-lateral { display: none !important; }
-            body, .workspace, .painel-visualizacao { background: none; padding: 0; margin: 0; display: block; overflow: visible; }
-            
-            .cartaz-bloco {
+            .no-print { display: none !important; }
+            body { background: none; padding: 0; }
+            .cartaz {
                 margin: 0 auto;
                 page-break-after: always;
-                width: 100%;
-                height: 98vh;
-                box-shadow: none;
-                border-radius: 0;
-                padding: 40px;
+                max-width: 100%;
+                height: 96vh;
+                border-width: 25px;
             }
-            .cartaz-tag { font-size: 65px; padding: 15px 0; }
-            .cartaz-titulo { font-size: 80px; }
-            .cartaz-reais { font-size: 300px; }
-            .cartaz-centavos { font-size: 130px; }
-            .cartaz-rs { font-size: 50px; margin-top: 25px; }
+            .reais { font-size: 240px; }
+            .centavos { font-size: 100px; }
+            .produto { font-size: 60px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>CARTAZISTA PRO</h1>
-    </header>
-
-    <div class="workspace">
-        <!-- Esquerda: Entrada de Dados -->
-        <div class="painel-lateral no-print">
-            <div>
-                <label>Produtos e Ofertas</label>
-                <p style="font-size:12px; color:#64748b; margin: 5px 0 10px 0;">Digite o produto e o preço separados por apenas uma vírgula:</p>
-                
-                <textarea id="txtInput" oninput="renderizar()">Arroz Tio João 5kg, 24.99&#10;Feijão Carioca 1kg, 7.49&#10;Óleo de Soja 900ml, 6.15</textarea>
-            </div>
-            
-            <button class="btn-print" onclick="window.print()">Imprimir Cartazes</button>
-        </div>
-
-        <!-- Direita: Visualização dos Cartazes -->
-        <div class="painel-visualizacao" id="containerCartazes"></div>
+    <!-- Menu de Entrada de Texto -->
+    <div class="painel no-print">
+        <label><strong>DIGITE: PRODUTO, PREÇO (UM POR LINHA)</strong></label>
+        <textarea id="lista" oninput="criar()"></textarea>
+        <button onclick="window.print()">IMPRIMIR CARTAZES</button>
     </div>
 
+    <!-- Onde os cartazes aparecem -->
+    <div class="area-cartazes" id="resultado"></div>
+
     <script>
-        function renderizar() {
-            const txtInput = document.getElementById('txtInput');
-            const containerCartazes = document.getElementById('containerCartazes');
+        // Função ultraleve que não quebra se o usuário errar a digitação
+        function criar() {
+            const caixaTexto = document.getElementById('lista');
+            const espacoGeral = document.getElementById('resultado');
             
-            const linhas = txtInput.value.split('\n');
-            containerCartazes.innerHTML = ''; 
+            const linhas = caixaTexto.value.split('\n');
+            espacoGeral.innerHTML = ''; 
 
-            linhas.forEach(linha => {
-                // Se a linha não tiver uma vírgula, ignora para não quebrar o código
-                if (!linha.trim() || !linha.includes(',')) return;
+            for (let i = 0; i < linhas.length; i++) {
+                let linha = linhas[i].trim();
+                if (linha === '' || !linha.includes(',')) continue;
 
-                // Divide estritamente na primeira vírgula encontrada
-                const posicaoVirgula = linha.indexOf(',');
-                const produto = linha.substring(0, posicaoVirgula).trim();
-                const precoBruto = linha.substring(posicaoVirgula + 1).trim();
+                let partes = linha.split(',');
+                let nomeProd = partes[0].trim();
+                let precoProd = partes[1].trim();
 
-                // Extrai apenas os números do preço
-                const precoNum = parseFloat(precoBruto.replace(/[^\d.]/g, ''));
-                if (isNaN(precoNum)) return;
+                // Converte texto em número válido
+                let numero = parseFloat(precoProd.replace(/[^0-9.]/g, ''));
+                if (isNaN(numero)) continue;
 
-                // Separa os reais dos centavos
-                const [reais, centavos] = precoNum.toFixed(2).split('.');
+                // Divide Reais de Centavos
+                let arrPreco = numero.toFixed(2).split('.');
+                let reais = arrPreco[0];
+                let centavos = arrPreco[1];
 
-                // Cria o elemento visual do cartaz
-                const div = document.createElement('div');
-                div.className = 'cartaz-bloco';
-                
-                div.innerHTML = `
-                    <div class="cartaz-tag">OFERTA</div>
-                    <h2 class="cartaz-titulo">${produto}</h2>
-                    <div class="cartaz-preco-wrapper">
-                        <span class="cartaz-rs">R$</span>
-                        <span class="cartaz-reais">${reais}</span>
-                        <span class="cartaz-centavos">,${centavos}</span>
+                // Desenha o cartaz na tela
+                espacoGeral.innerHTML += `
+                    <div class="cartaz">
+                        <div class="oferta">OFERTA</div>
+                        <div class="produto">${nomeProd}</div>
+                        <div class="preco-container">
+                            <span class="cifrao">R$</span>
+                            <span class="reais">${reais}</span>
+                            <span class="centavos">,${centavos}</span>
+                        </div>
                     </div>
                 `;
-                
-                containerCartazes.appendChild(div);
-            });
+            }
         }
-
-        // Executa automaticamente ao abrir o site para carregar os exemplos
-        renderizar();
+        
+        // Carrega um exemplo padrão na primeira abertura do site
+        document.getElementById('lista').value = "Arroz 5kg, 24.90\nFeijão 1kg, 7.49";
+        criar();
     </script>
 
 </body>
