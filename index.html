@@ -3,289 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cartazista Pro — Gerador de Ofertas</title>
-    <!-- Importação de fontes profissionais de alta densidade e estilo pincel de mercado -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    <title>CartazFast - Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Anton&display=swap" rel="stylesheet">
+    
     <style>
-        /* Cores do Painel Administrativo Inspiradas no Original */
+        /* --- ESTILOS DA INTERFACE (UI) --- */
         :root {
-            --bg-dark: #090f1c;
-            --bg-card: #121a2e;
-            --blue-accent: #0ea5e9;
-            --border-line: #1e293b;
+            --bg-general: #121824;
+            --bg-panel: #1E293B;
+            --text-main: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --primary: #2563EB;
+            --primary-hover: #1D4ED8;
+            --border: #334155;
         }
 
-        * { box-sizing: border-box; font-family: 'Barlow Condensed', sans-serif; }
-
-        body {
-            background-color: var(--bg-dark);
-            color: #ffffff;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-general);
+            color: var(--text-main);
             height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
+        /* Topbar */
         header {
-            background-color: var(--bg-card);
-            padding: 15px 25px;
-            border-bottom: 2px solid var(--border-line);
+            background-color: var(--bg-panel);
+            padding: 1rem 2rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 26px;
-            color: var(--blue-accent);
-            letter-spacing: 1.5px;
-            font-family: 'Bebas Neue', sans-serif;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border);
         }
 
-        .workspace {
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn-secondary { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+        .btn-secondary:hover { background-color: #2d3748; color: white; }
+
+        /* Layout Split */
+        .main-container {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
-        /* Painel Lateral de Controle */
-        .painel-lateral {
-            width: 360px;
-            background-color: var(--bg-card);
-            padding: 20px;
+        /* Painel de Controle (Esquerdo) */
+        .control-panel {
+            width: 40%;
+            background-color: var(--bg-panel);
+            padding: 2rem;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            border-right: 2px solid var(--border-line);
-            overflow-y: auto;
+            gap: 1.5rem;
         }
 
-        label {
-            font-size: 13px;
-            color: #94a3b8;
+        .section-title {
+            font-size: 0.9rem;
             text-transform: uppercase;
-            font-weight: 900;
-            letter-spacing: 1px;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.25rem;
         }
 
-        textarea {
-            width: 100%;
-            height: 220px;
-            background-color: #060a14;
-            border: 2px solid #273549;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+        
+        input[type="text"], input[type="number"], select {
+            background-color: var(--bg-general);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.75rem;
             border-radius: 6px;
-            color: #fff;
-            padding: 12px;
-            font-size: 15px;
-            font-family: monospace;
-            resize: none;
-            line-height: 1.4;
+            font-size: 1rem;
+            outline: none;
         }
-        textarea:focus { border-color: var(--blue-accent); outline: none; }
 
-        .btn-print {
-            background-color: #22c55e;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: bold;
+        input:focus, select:focus { border-color: var(--primary); }
+
+        .price-row { display: flex; gap: 1rem; }
+        .price-main { flex: 2; }
+        .price-cents { flex: 1; }
+
+        /* Opções Visuais (Botões de seleção rápida) */
+        .radio-tile-group { display: flex; gap: 0.5rem; }
+        .radio-tile {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
             border-radius: 6px;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.1s;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
-        .btn-print:active { transform: scale(0.98); }
+        .radio-tile.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
 
-        /* Área de Visualização (Direita) */
-        .painel-visualizacao {
-            flex: 1;
-            background-color: #060a14;
-            padding: 30px;
-            overflow-y: auto;
+        /* Área do Preview (Direita) */
+        .preview-area {
+            width: 60%;
             display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
             justify-content: center;
-            align-content: flex-start;
-        }
-
-        /* O CARTAZ PROFISSIONAL (Estilo Encarte PDV) */
-        .cartaz-bloco {
-            background-color: #ffea00; /* Amarelo Puro de Encarte */
-            width: 340px;
-            height: 480px;
-            border: 12px solid #ff0000; /* Borda grossa vermelha */
-            outline: 4px solid #ffffff; /* Linha branca de contraste interna */
-            outline-offset: -8px;
-            border-radius: 4px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 25px 15px 15px 15px;
-            text-align: center;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
+            padding: 2rem;
+            overflow: auto;
         }
 
-        /* Explosão/Faixa de Oferta Superior */
-        .cartaz-tag {
-            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-            color: #ffffff;
-            font-family: 'Anton', sans-serif;
-            font-size: 38px;
-            width: 120%;
-            padding: 6px 0;
-            margin-top: -10px;
-            transform: rotate(-2.5deg);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            letter-spacing: 2px;
-            text-shadow: 3px 3px 0px #000000; /* Sombra seca estilo quadrinhos/supermercado */
-            border-bottom: 3px solid #ffea00;
-        }
-
-        /* Nome do Produto em Destaque Absoluto */
-        .cartaz-titulo {
+        /* --- ESTILOS DO CARTAZ (MOCKUP REAL) --- */
+        /* O design do cartaz usa cores estouradas propositalmente (Varejo) */
+        .poster-mockup {
+            width: 420px; /* Proporção A4 */
+            height: 594px;
+            background-color: #FFE600; /* Amarelo tradicional padrão */
             color: #000000;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 900;
-            font-style: italic; /* Inclinação de velocidade/promoção */
-            font-size: 42px;
-            line-height: 0.9;
-            margin: auto 0;
-            word-wrap: break-word;
-            width: 100%;
-            padding: 0 10px;
-            letter-spacing: -1px;
-            /* Efeito de preenchimento pesado */
-            text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff; 
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Container do Preço com Centavos Flutuantes Suspensos */
-        .cartaz-preco-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            color: #ff0000;
-            font-family: 'Anton', sans-serif;
-            width: 100%;
-            margin-bottom: 5px;
-            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-        }
-
-        .cartaz-rs {
-            font-size: 26px;
-            font-weight: bold;
-            margin-top: 12px;
-            margin-right: 4px;
-            font-family: 'Bebas Neue', sans-serif;
-        }
-
-        .cartaz-reais {
-            font-size: 155px;
-            line-height: 0.75;
-            letter-spacing: -5px;
-        }
-
-        .cartaz-centavos-box {
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transition: background-color 0.3s;
+            border: 15px solid #FF0000; /* Borda vermelha de oferta */
+        }
+
+        /* Variações do Cartaz */
+        .poster-mockup.bg-vermelho { background-color: #E11D48; color: #FFFFFF; border-color: #FFE600; }
+        .poster-mockup.bg-branco { background-color: #FFFFFF; color: #000000; border-color: #1E293B; }
+        .poster-mockup.no-border { border: none; }
+
+        /* Tipografias do Cartaz */
+        .poster-mockup.font-letrista { font-family: 'Permanent Marker', cursive; }
+        .poster-mockup.font-impact { font-family: 'Anton', sans-serif; }
+
+        .poster-header {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: #FF0000;
+            color: white;
+            padding: 0.2rem 2rem;
+            transform: skewX(-10deg);
+            margin-top: 1rem;
+        }
+        .bg-vermelho .poster-header { background: #FFE600; color: black; }
+        .bg-branco .poster-header { background: #000; color: white; }
+
+        .poster-product {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-transform: uppercase;
+            word-break: break-word;
+            margin: auto 0;
+            max-height: 120px;
+            overflow: hidden;
+        }
+
+        .poster-price-container {
+            display: flex;
             align-items: flex-start;
-            margin-top: 12px;
-            margin-left: -2px;
+            justify-content: center;
+            font-family: 'Anton', sans-serif; /* Preço sempre impactante */
+            line-height: 0.8;
+            margin-bottom: auto;
         }
 
-        .cartaz-centavos {
-            font-size: 68px;
-            line-height: 0.75;
-            border-bottom: 4px solid #ff0000; /* Linha abaixo dos centavos suspensos */
-            padding-bottom: 2px;
-        }
+        .poster-currency { font-size: 2.5rem; margin-right: 0.5rem; margin-top: 1rem; }
+        .poster-price-main { font-size: 9rem; font-weight: bold; }
+        .poster-price-cents-box { display: flex; flex-direction: column; align-items: flex-start; }
+        .poster-price-cents { font-size: 4rem; font-weight: bold; text-decoration: underline; }
+        .poster-unit { font-size: 1.5rem; text-transform: uppercase; font-weight: bold; margin-top: 0.5rem;}
 
-        /* REGRAS DE IMPRESSÃO (Ajusta dinamicamente para folha A4 cheia) */
-        @media print {
-            .no-print, header, .painel-lateral { display: none !important; }
-            body, .workspace, .painel-visualizacao { background: none; padding: 0; margin: 0; display: block; overflow: visible; }
-            
-            .cartaz-bloco {
-                margin: 0 auto;
-                page-break-after: always;
-                width: 100%;
-                height: 99vh;
-                box-shadow: none;
-                border-radius: 0;
-                padding: 50px 30px;
-                border-width: 25px;
-                outline-width: 8px;
-                outline-offset: -18px;
-            }
-            .cartaz-tag { font-size: 75px; padding: 12px 0; border-bottom-width: 6px; }
-            .cartaz-titulo { font-size: 85px; text-shadow: 2px 2px 0px #fff; }
-            .cartaz-reais { font-size: 340px; }
-            .cartaz-centavos { font-size: 140px; border-bottom-width: 8px; }
-            .cartaz-rs { font-size: 55px; margin-top: 30px; }
+        .poster-footer {
+            font-size: 1rem;
+            font-weight: 700;
+            border-top: 2px dashed rgba(0,0,0,0.2);
+            width: 100%;
+            padding-top: 1rem;
+            text-transform: uppercase;
         }
+        .bg-vermelho .poster-footer { border-top-color: rgba(255,255,255,0.3); }
+
+        /* Esconder selo se desativado */
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>CARTAZISTA PRO</h1>
+        <button class="btn btn-secondary">← Voltar</button>
+        <div style="font-weight: 600;">Editor de Cartazes</div>
+        <button class="btn" onclick="alert('Indo para a tela de Impressão/Exportação!')">Avançar para Impressão →</button>
     </header>
 
-    <div class="workspace">
-        <!-- Esquerda: Entrada de Dados Administrativa -->
-        <div class="painel-lateral no-print">
-            <div>
-                <label>Lista de Ofertas</label>
-                <p style="font-size:12px; color:#64748b; margin: 5px 0 12px 0;">Insira o nome do produto e o preço divididos por uma vírgula:</p>
-                
-                <textarea id="txtInput" oninput="renderizar()">Saboroso Arroz 5kg, 24.99&#10;Feijão Carioquinha 1kg, 7.45&#10;Óleo de Soja Leve, 6.18&#10;Leite Integral 1L, 4.39</textarea>
-            </div>
+    <div class="main-container">
+        
+        <aside class="control-panel">
             
-            <button class="btn-print" onclick="window.print()">Imprimir Cartazes</button>
-        </div>
+            <div>
+                <div class="section-title">1. Formato do Papel</div>
+                <div class="form-group">
+                    <select id="input-size">
+                        <option value="a4">A4 (Sulfite Padrão)</option>
+                        <option value="a3">A3 (Cartaz Grande)</option>
+                        <option value="a5">A5 (Mini Oferta)</option>
+                    </select>
+                </div>
+            </div>
 
-        <!-- Direita: Área de Renderização Real dos Cartazes -->
-        <div class="painel-visualizacao" id="containerCartazes"></div>
+            <div>
+                <div class="section-title">2. Informações do Produto</div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label for="input-name">Nome do Produto</label>
+                    <input type="text" id="input-name" value="Arroz Tipo 1 5kg" placeholder="Ex: Óleo de Soja 900ml">
+                </div>
+                
+                <div class="price-row" style="margin-bottom: 1rem;">
+                    <div class="form-group price-main">
+                        <label for="input-price">Preço R$</label>
+                        <input type="number" id="input-price" value="19" placeholder="19">
+                    </div>
+                    <div class="form-group price-cents">
+                        <label for="input-cents">Centavos</label>
+                        <input type="text" id="input-cents" value="98" maxlength="2" placeholder="99">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label for="input-unit">Unidade de Medida</label>
+                    <select id="input-unit">
+                        <option value="Un">Unidade (Un)</option>
+                        <option value="Kg" selected>Quilo (Kg)</option>
+                        <option value="L">Litro (L)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-footer">Texto Adicional / Rodapé</label>
+                    <input type="text" id="input-footer" value="Apenas 3 unidades por cliente" placeholder="Ex: Validade: 30/12">
+                </div>
+            </div>
+
+            <div>
+                <div class="section-title">3. Estilo Visual</div>
+                
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label>Cor de Fundo</label>
+                    <div class="radio-tile-group">
+                        <div class="radio-tile active" onclick="changeBg('amarelo', this)">Amarelo</div>
+                        <div class="radio-tile" onclick="changeBg('vermelho', this)">Vermelho</div>
+                        <div class="radio-tile" onclick="changeBg('branco', this)">Branco</div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label>Estilo da Fonte</label>
+                    <div class="radio-tile-group">
+                        <div class="radio-tile active" onclick="changeFont('letrista', this)">Letrista</div>
+                        <div class="radio-tile" onclick="changeFont('impact', this)">Impact</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Selo de Destaque</label>
+                    <div class="radio-tile-group">
+                        <div class="radio-tile active" onclick="toggleSelo(true, this)">Com Selo</div>
+                        <div class="radio-tile" onclick="toggleSelo(false, this)">Sem Selo</div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <main class="preview-area">
+            
+            <div id="poster" class="poster-mockup font-letrista">
+                <div id="poster-selo" class="poster-header">OFERTA</div>
+                <div id="poster-name" class="poster-product">Arroz Tipo 1 5kg</div>
+                
+                <div class="poster-price-container">
+                    <span class="poster-currency">R$</span>
+                    <span id="poster-price-main" class="poster-price-main">19</span>
+                    <div class="poster-price-cents-box">
+                        <span id="poster-price-cents" class="poster-price-cents">,98</span>
+                        <span id="poster-unit" class="poster-unit">/Kg</span>
+                    </div>
+                </div>
+
+                <div id="poster-footer" class="poster-footer">Apenas 3 unidades por cliente</div>
+            </div>
+
+        </main>
     </div>
 
     <script>
-        function renderizar() {
-            const txtInput = document.getElementById('txtInput');
-            const containerCartazes = document.getElementById('containerCartazes');
+        // Mapeamento dos inputs da UI para os elementos do Cartaz
+        const inputs = {
+            name: document.getElementById('input-name'),
+            price: document.getElementById('input-price'),
+            cents: document.getElementById('input-cents'),
+            unit: document.getElementById('input-unit'),
+            footer: document.getElementById('input-footer')
+        };
+
+        const posterElements = {
+            name: document.getElementById('poster-name'),
+            priceMain: document.getElementById('poster-price-main'),
+            priceCents: document.getElementById('poster-price-cents'),
+            unit: document.getElementById('poster-unit'),
+            footer: document.getElementById('poster-footer')
+        };
+
+        // Função de atualização em tempo real
+        function updatePoster() {
+            posterElements.name.innerText = inputs.name.value || "NOME DO PRODUTO";
+            posterElements.priceMain.innerText = inputs.price.value || "0";
             
-            const linhas = txtInput.value.split('\n');
-            containerCartazes.innerHTML = ''; 
+            // Garante que o formato dos centavos sempre tenha a vírgula visível
+            let centsVal = inputs.cents.value;
+            if(centsVal && !centsVal.startsWith(',')) centsVal = ',' + centsVal;
+            posterElements.priceCents.innerText = centsVal || ",00";
+            
+            posterElements.unit.innerText = '/' + inputs.unit.value;
+            posterElements.footer.innerText = inputs.footer.value || "";
+        }
 
-            linhas.forEach(linha => {
-                if (!linha.trim() || !linha.includes(',')) return;
+        // Adiciona ouvintes de eventos para atualizar a cada tecla digitada
+        Object.keys(inputs).forEach(key => {
+            inputs[key].addEventListener('input', updatePoster);
+        });
 
-                // Divide estritamente na posição da primeira vírgula encontrada
-                const posicaoVirgula = linha.indexOf(',');
-                const produto = linha.substring(0, posicaoVirgula).trim();
-                const precoBruto = linha.substring(posicaoVirgula + 1).trim();
+        // Alternadores de Estilo (Fundo)
+        function changeBg(color, element) {
+            const poster = document.getElementById('poster');
+            poster.classList.remove('bg-vermelho', 'bg-branco');
+            if(color === 'vermelho') poster.classList.add('bg-vermelho');
+            if(color === 'branco') poster.classList.add('bg-branco');
+            
+            clearActive(element);
+        }
 
-                // Extração matemática do valor digitado
-                const precoNum = parseFloat(precoBruto.replace(/[^\d.]/g, ''));
-                if (isNaN(precoNum)) return;
+        // Alternadores de Estilo (Fonte)
+        function changeFont(font, element) {
+            const poster = document.getElementById('poster');
+            poster.classList.remove('font-letrista', 'font-impact');
+            poster.classList.add('font-' + font);
+            
+            clearActive(element);
+        }
 
-                // Separação de Reais e Centavos decimais
-                const [reais, centavos] = precoNum.toFixed(2).split('.');
+        // Ativar/Desativar Selo Superior
+        function toggleSelo(show, element) {
+            const selo = document.getElementById('poster-selo');
+            if(show) selo.classList.remove('hidden');
+            else selo.classList.add('hidden');
+            
+            clearActive(element);
+        }
 
-                // Montagem da estrutura profissional do cartaz de preço
-                const div = document.createElement('div');
-                div.className = 'cartaz-bloco';
-                
-                div.innerHTML = `
-        
+        // Utilitário para gerenciar classe ativa nos botões da interface
+        function clearActive(element) {
+            const parent = element.parentElement;
+            const buttons = parent.querySelectorAll('.radio-tile');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
