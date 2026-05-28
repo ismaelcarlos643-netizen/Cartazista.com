@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CartazFast - Editor Pro</title>
+    <title>CartazFast - Editor Pro Blindado</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ESTILOS DA INTERFACE (UI) --- */
+        /* --- INTERFACE DO SISTEMA --- */
         :root {
             --bg-general: #121824;
             --bg-panel: #1E293B;
@@ -22,7 +23,7 @@
             --border: #334155;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; }
 
         body {
             background-color: var(--bg-general);
@@ -40,7 +41,6 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            z-index: 10;
         }
 
         .btn {
@@ -56,14 +56,12 @@
         .btn-primary { background-color: var(--primary); }
         .btn-primary:hover { background-color: var(--primary-hover); }
         .btn-success { background-color: var(--success); }
-        .btn-success:hover { background-color: #15803D; }
         .btn-secondary { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
-        .btn-secondary:hover { background-color: #2d3748; color: white; }
-        .btn-danger { background-color: var(--danger); padding: 0.4rem 0.7rem; font-size: 0.8rem;}
+        .btn-danger { background-color: var(--danger); padding: 0.3rem 0.6rem; font-size: 0.8rem; border-radius: 4px;}
 
         .main-container { display: flex; flex: 1; overflow: hidden; }
 
-        /* Painel Esquerdo */
+        /* Painel Lateral */
         .control-panel {
             width: 35%;
             background-color: var(--bg-panel);
@@ -98,7 +96,6 @@
             font-size: 0.95rem;
             outline: none;
         }
-        input:focus, select:focus { border-color: var(--primary); }
 
         .price-row { display: flex; gap: 0.5rem; }
         .price-main { flex: 2; }
@@ -115,15 +112,15 @@
             font-size: 0.8rem;
             font-weight: 500;
             background: var(--bg-general);
+            color: var(--text-secondary);
         }
         .radio-tile.active { background-color: var(--primary); border-color: var(--primary); color: white;}
 
-        /* Lista / Fila de Produtos */
         .product-list {
             background: var(--bg-general);
             border: 1px solid var(--border);
             border-radius: 6px;
-            max-height: 180px;
+            max-height: 150px;
             overflow-y: auto;
             padding: 0.5rem;
         }
@@ -135,7 +132,6 @@
             border-bottom: 1px solid var(--border);
             font-size: 0.85rem;
         }
-        .product-item:last-child { border-bottom: none; }
 
         /* Área do Preview (Direita) */
         .preview-area {
@@ -148,63 +144,68 @@
             background-color: var(--bg-general);
         }
 
-        /* Container da Folha de Impressão */
+        /* --- FOLHA DE IMPRESSÃO --- */
         .print-sheet {
-            background: #fff;
+            background: #ffffff !important;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            display: grid;
-            gap: 0px;
+            display: block;
             box-sizing: border-box;
-            transition: all 0.3s ease;
+            overflow: hidden;
         }
 
-        /* Tamanhos da Folha Base baseados em proporção A4 (Modo Retrato padrão) */
-        .print-sheet.retrato { width: 420px; height: 594px; grid-template-columns: 100%; grid-template-rows: 100%; }
-        .print-sheet.paisagem { width: 594px; height: 420px; grid-template-columns: 100%; grid-template-rows: 100%; }
-        
-        /* Layout de 4 Cartazes por Folha */
-        .print-sheet.grid-4.retrato { grid-template-columns: 50% 50%; grid-template-rows: 50% 50%; }
-        .print-sheet.grid-4.paisagem { grid-template-columns: 50% 50%; grid-template-rows: 50% 50%; }
+        /* Tamanhos Proporcionais da Folha na Tela */
+        .print-sheet.retrato { width: 420px; height: 594px; }
+        .print-sheet.paisagem { width: 594px; height: 420px; }
 
-        /* --- ESTILOS DO CARTAZ --- */
+        /* Grid de Distribuição interna da folha */
+        .grid-container {
+            display: grid;
+            width: 100%;
+            height: 100%;
+            grid-template-columns: 100%;
+            grid-template-rows: 100%;
+            box-sizing: border-box;
+        }
+        .grid-4-active {
+            grid-template-columns: 50% 50% !important;
+            grid-template-rows: 50% 50% !important;
+        }
+
+        /* --- ESTILOS DO CARTAZ DE VAREJO --- */
         .poster {
-            background-color: #FFE600; /* Amarelo */
-            color: #000000;
-            padding: 1rem;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             text-align: center;
-            position: relative;
-            border: 12px solid #FF0000; /* Borda Vermelha Padrão */
-            box-sizing: border-box;
-            height: 100%;
-            width: 100%;
+            padding: 1.5rem;
             overflow: hidden;
+            border: 14px solid #FF0000; /* Borda padrão */
         }
 
-        /* Variações de Cores pedidas */
-        .poster.bg-amarelo { background-color: #FFE600; color: #000; border-color: #FF0000; }
-        .poster.bg-vermelho { background-color: #E11D48; color: #FFF; border-color: #FFE600; }
-        .poster.bg-branco-vermelho { background-color: #FFFFFF; color: #000; border-color: #FF0000; } /* Branco com borda vermelha */
+        /* Temas de cores corrigidos e garantidos */
+        .poster.bg-amarelo { background-color: #FFE600 !important; color: #000000 !important; border-color: #FF0000 !important; }
+        .poster.bg-vermelho { background-color: #E11D48 !important; color: #FFFFFF !important; border-color: #FFE600 !important; }
+        .poster.bg-branco-vermelho { background-color: #FFFFFF !important; color: #000000 !important; border-color: #FF0000 !important; }
 
-        /* Fontes */
-        .poster.font-letrista { font-family: 'Permanent Marker', cursive; }
-        .poster.font-impact { font-family: 'Anton', sans-serif; }
+        /* Fontes com Fallbacks (Se a webfont falhar, usa a do sistema) */
+        .poster.font-letrista { font-family: 'Permanent Marker', 'Arial Black', Gadget, sans-serif; }
+        .poster.font-impact { font-family: 'Anton', 'Impact', Charcoal, sans-serif; }
 
         .poster-header {
             font-size: 1.8rem;
             font-weight: 900;
             text-transform: uppercase;
             background: #FF0000;
-            color: white;
-            padding: 0.1rem 1.5rem;
+            color: #FFFFFF;
+            padding: 0.2rem 1.5rem;
             transform: skewX(-10deg);
-            margin-top: 0.2rem;
         }
-        .bg-vermelho .poster-header { background: #FFE600; color: black; }
-        .bg-branco-vermelho .poster-header { background: #FF0000; color: white; }
+        .bg-vermelho .poster-header { background: #FFE600; color: #000000; }
+        .bg-branco-vermelho .poster-header { background: #FF0000; color: #FFFFFF; }
 
         .poster-product {
             font-size: 1.8rem;
@@ -212,49 +213,52 @@
             line-height: 1.1;
             text-transform: uppercase;
             margin: auto 0;
+            color: inherit; /* Garante que herda a cor do tema */
         }
 
         .poster-price-container {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            font-family: 'Anton', sans-serif;
+            font-family: 'Anton', 'Impact', sans-serif;
             line-height: 0.8;
             margin-bottom: auto;
+            color: inherit;
         }
 
         .poster-currency { font-size: 1.5rem; margin-right: 0.2rem; margin-top: 0.5rem; }
-        .poster-price-main { font-size: 6.5rem; font-weight: bold; }
+        .poster-price-main { font-size: 6rem; font-weight: bold; }
         .poster-price-cents-box { display: flex; flex-direction: column; align-items: flex-start; }
-        .poster-price-cents { font-size: 3rem; font-weight: bold; text-decoration: underline; }
+        .poster-price-cents { font-size: 2.8rem; font-weight: bold; text-decoration: underline; }
         .poster-unit { font-size: 1.1rem; text-transform: uppercase; font-weight: bold; margin-top: 0.2rem;}
 
         .poster-footer {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            border-top: 2px dashed rgba(0,0,0,0.2);
+            border-top: 2px dashed rgba(0,0,0,0.3);
             width: 100%;
             padding-top: 0.5rem;
             text-transform: uppercase;
+            color: inherit;
         }
         
-        /* Ajustes finos quando há 4 cartazes na folha (Fontes menores para caber) */
-        .grid-4 .poster { border-width: 6px; padding: 0.5rem; }
-        .grid-4 .poster-header { font-size: 1.1rem; }
-        .grid-4 .poster-product { font-size: 1.1rem; }
-        .grid-4 .poster-price-main { font-size: 3.8rem; }
-        .grid-4 .poster-price-cents { font-size: 1.8rem; }
-        .grid-4 .poster-currency { font-size: 1rem; }
-        .grid-4 .poster-unit { font-size: 0.8rem; }
-        .grid-4 .poster-footer { font-size: 0.6rem; }
+        /* Ajuste de escala automático para o modo 4 por folha */
+        .grid-4-active .poster { border-width: 8px; padding: 0.6rem; }
+        .grid-4-active .poster-header { font-size: 1.1rem; padding: 0.1rem 0.8rem; }
+        .grid-4-active .poster-product { font-size: 1.1rem; }
+        .grid-4-active .poster-price-main { font-size: 3.5rem; }
+        .grid-4-active .poster-price-cents { font-size: 1.6rem; }
+        .grid-4-active .poster-currency { font-size: 0.9rem; }
+        .grid-4-active .poster-unit { font-size: 0.8rem; }
+        .grid-4-active .poster-footer { font-size: 0.65rem; }
 
         .hidden { display: none !important; }
 
-        /* --- REGRAS DE IMPRESSÃO NATIVA --- */
+        /* CRÍTICO: Configuração de Impressão Física */
         @media print {
             body *, header, .control-panel { display: none !important; }
-            body, .main-container, .preview-area { background: #fff !important; padding: 0 !important; margin: 0 !important; height: 100vh !important; width: 100vw !important; display: flex !important; justify-content: center !important; align-items: center !important; }
-            .print-sheet { border: none !important; box-shadow: none !important; width: 100vw !important; height: 100vh !important; display: grid !important; }
+            body, .main-container, .preview-area { background: #ffffff !important; padding: 0 !important; margin: 0 !important; height: 100vh !important; width: 100vw !important; display: block !important; }
+            .print-sheet { border: none !important; box-shadow: none !important; width: 100vw !important; height: 100vh !important; display: block !important; }
             @page { margin: 0; }
         }
     </style>
@@ -263,8 +267,8 @@
 
     <header>
         <button class="btn btn-secondary">← Voltar</button>
-        <div style="font-weight: 600;">Editor de Cartazes Pro</div>
-        <button class="btn btn-success" onclick="window.print()">🖨️ Imprimir Folha Atual</button>
+        <div style="font-weight: 600;">CartazFast - Impressão Comercial</div>
+        <button class="btn btn-success" onclick="window.print()">🖨️ Imprimir Folha</button>
     </header>
 
     <div class="main-container">
@@ -272,85 +276,83 @@
         <aside class="control-panel">
             
             <div>
-                <div class="section-title">1. Configuração da Folha</div>
-                <div class="form-group" style="margin-bottom: 0.8rem;">
-                    <label>Orientação da Página</label>
+                <div class="section-title">1. Formato da Página</div>
+                <div class="form-group" style="margin-bottom: 0.6rem;">
+                    <label>Orientação</label>
                     <div class="radio-tile-group">
-                        <div id="opt-retrato" class="radio-tile active" onclick="setOrientacao('retrato')">Retrato (Em pé)</div>
-                        <div id="opt-paisagem" class="radio-tile" onclick="setOrientacao('paisagem')">Paisagem (Deitado)</div>
+                        <div id="btn-retrato" class="radio-tile active" onclick="alterarOrientacao('retrato')">Retrato (Padrão)</div>
+                        <div id="btn-paisagem" class="radio-tile" onclick="alterarOrientacao('paisagem')">Paisagem</div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Quantidade por Folha</label>
+                    <label>Divisão da Folha</label>
                     <div class="radio-tile-group">
-                        <div id="opt-qtd-1" class="radio-tile active" onclick="setLayoutQtd(1)">1 Grande</div>
-                        <div id="opt-qtd-4" class="radio-tile" onclick="setLayoutQtd(4)">4 Pequenos</div>
+                        <div id="btn-qtd-1" class="radio-tile active" onclick="alterarDivisao(1)">1 Cartaz Grande</div>
+                        <div id="btn-qtd-4" class="radio-tile" onclick="alterarDivisao(4)">4 por Folha</div>
                     </div>
                 </div>
             </div>
 
             <div>
-                <div class="section-title">2. Produto Atual</div>
+                <div class="section-title">2. Dados do Produto</div>
                 <div class="form-group" style="margin-bottom: 0.6rem;">
-                    <label>Nome do Produto</label>
-                    <input type="text" id="input-name" value="Arroz Tipo 1 5kg">
+                    <label>Nome no Cartaz</label>
+                    <input type="text" id="prod-name" value="Arroz Tipo 1 5kg">
                 </div>
                 
                 <div class="price-row" style="margin-bottom: 0.6rem;">
                     <div class="form-group price-main">
                         <label>Preço R$</label>
-                        <input type="number" id="input-price" value="19">
+                        <input type="number" id="prod-price" value="19">
                     </div>
                     <div class="form-group price-cents">
                         <label>Centavos</label>
-                        <input type="text" id="input-cents" value="98" maxlength="2">
+                        <input type="text" id="prod-cents" value="98" maxlength="2">
                     </div>
                 </div>
 
                 <div class="price-row" style="margin-bottom: 0.6rem;">
                     <div class="form-group" style="flex:1;">
                         <label>Unidade</label>
-                        <select id="input-unit">
+                        <select id="prod-unit">
                             <option value="Un">Un</option>
                             <option value="Kg" selected>Kg</option>
                             <option value="L">Litro</option>
                         </select>
                     </div>
                     <div class="form-group" style="flex:2;">
-                        <label>Texto Rodapé</label>
-                        <input type="text" id="input-footer" value="Máximo 3 un por cliente">
+                        <label>Rodapé</label>
+                        <input type="text" id="prod-footer" value="Máximo 3 un por cliente">
                     </div>
                 </div>
 
-                <button class="btn btn-primary" style="width: 100%; margin-top: 0.4rem;" onclick="adicionarProdutoDaqui()">
-                    ➕ Adicionar à Fila de Impressão
+                <button class="btn btn-primary" style="width: 100%; margin-top: 0.3rem;" onclick="adicionarFila()">
+                    ➕ Inserir/Salvar na Lista
                 </button>
             </div>
 
             <div>
-                <div class="section-title">3. Estilo do Cartaz</div>
-                
+                <div class="section-title">3. Visual do Cartaz</div>
                 <div class="form-group" style="margin-bottom: 0.6rem;">
-                    <label>Cor do Fundo / Borda</label>
+                    <label>Cor de Fundo / Bordas</label>
                     <div class="radio-tile-group">
-                        <div id="opt-bg-amarelo" class="radio-tile active" onclick="setVisualBg('amarelo')">Amarelo</div>
-                        <div id="opt-bg-vermelho" class="radio-tile" onclick="setVisualBg('vermelho')">Vermelho</div>
-                        <div id="opt-bg-branco" class="radio-tile" onclick="setVisualBg('branco-vermelho')">Branco/Vermelho</div>
+                        <div id="btn-bg-amarelo" class="radio-tile active" onclick="alterarCor('bg-amarelo')">Amarelo</div>
+                        <div id="btn-bg-vermelho" class="radio-tile" onclick="alterarCor('bg-vermelho')">Vermelho</div>
+                        <div id="btn-bg-branco" class="radio-tile" onclick="alterarCor('bg-branco-vermelho')">Branco/Vermelho</div>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label>Estilo de Letra</label>
+                    <label>Tipo de Letra</label>
                     <div class="radio-tile-group">
-                        <div id="opt-font-letrista" class="radio-tile active" onclick="setVisualFont('letrista')">Letrista</div>
-                        <div id="opt-font-impact" class="radio-tile" onclick="setVisualFont('impact')">Impact</div>
+                        <div id="btn-font-letrista" class="radio-tile active" onclick="alterarFonte('font-letrista')">Letrista</div>
+                        <div id="btn-font-impact" class="radio-tile" onclick="alterarFonte('font-impact')">Impact</div>
                     </div>
                 </div>
             </div>
 
             <div>
-                <div class="section-title">4. Fila / Lista de Produtos (<span id="count-fila">1</span>)</div>
-                <div class="product-list" id="lista-produtos-ui">
+                <div class="section-title">4. Lista para Impressão (<span id="ui-contador">1</span>)</div>
+                <div class="product-list" id="ui-lista-produtos">
                     </div>
             </div>
 
@@ -358,127 +360,131 @@
 
         <main class="preview-area">
             <div id="print-sheet" class="print-sheet retrato">
-                </div>
+                <div id="grid-container" class="grid-container">
+                    </div>
+            </div>
         </main>
     </div>
 
     <script>
-        // Estado Global da Aplicação
-        let configuracao = {
-            orientacao: 'retrato', // retrato ou paisagem
-            layoutQtd: 1,          // 1 ou 4 por folha
-            bgEstilo: 'bg-amarelo',
-            fontEstilo: 'font-letrista'
+        // Configurações e Estado Inicial estável
+        let config = {
+            orientacao: 'retrato',
+            divisao: 1,
+            temaCor: 'bg-amarelo',
+            temaFonte: 'font-letrista'
         };
 
-        // Banco de dados em memória contendo a lista/fila de produtos inseridos
-        let filaProdutos = [
+        // Lista de produtos inicial
+        let listaProdutos = [
             { name: "Arroz Tipo 1 5kg", price: "19", cents: "98", unit: "Kg", footer: "Máximo 3 un por cliente" }
         ];
 
-        // Elementos de input da interface
-        const inputName = document.getElementById('input-name');
-        const inputPrice = document.getElementById('input-price');
-        const inputCents = document.getElementById('input-cents');
-        const inputUnit = document.getElementById('input-unit');
-        const inputFooter = document.getElementById('input-footer');
-        const sheetElement = document.getElementById('print-sheet');
+        // Captura de Inputs
+        const inName = document.getElementById('prod-name');
+        const inPrice = document.getElementById('prod-price');
+        const inCents = document.getElementById('prod-cents');
+        const inUnit = document.getElementById('prod-unit');
+        const inFooter = document.getElementById('prod-footer');
 
-        // Escuta digitação em tempo real para atualizar o primeiro cartaz da preview imediatamente
-        [inputName, inputPrice, inputCents, inputUnit, inputFooter].forEach(input => {
-            input.addEventListener('input', () => {
-                if(filaProdutos.length > 0) {
-                    filaProdutos[0] = {
-                        name: inputName.value,
-                        price: inputPrice.value,
-                        cents: inputCents.value,
-                        unit: inputUnit.value,
-                        footer: inputFooter.value
+        // Monitor de digitação instantâneo para o primeiro item
+        [inName, inPrice, inCents, inUnit, inFooter].forEach(elem => {
+            elem.addEventListener('input', () => {
+                if(listaProdutos.length > 0) {
+                    listaProdutos[0] = {
+                        name: inName.value,
+                        price: inPrice.value,
+                        cents: inCents.value,
+                        unit: inUnit.value,
+                        footer: inFooter.value
                     };
-                    renderizarFolha();
-                    renderizarListaUI();
+                    atualizarTela();
                 }
             });
         });
 
-        function adicionarProdutoDaqui() {
-            filaProdutos.push({
-                name: inputName.value,
-                price: inputPrice.value,
-                cents: inputCents.value,
-                unit: inputUnit.value,
-                footer: inputFooter.value
+        function adicionarFila() {
+            listaProdutos.push({
+                name: inName.value,
+                price: inPrice.value,
+                cents: inCents.value,
+                unit: inUnit.value,
+                footer: inFooter.value
             });
-            renderizarFolha();
-            renderizarListaUI();
+            atualizarTela();
         }
 
-        function removerProduto(index) {
-            filaProdutos.splice(index, 1);
-            renderizarFolha();
-            renderizarListaUI();
+        function removerItem(index) {
+            listaProdutos.splice(index, 1);
+            atualizarTela();
         }
 
-        // Altera a orientação (Retrato / Paisagem)
-        function setOrientacao(tipo) {
-            configuracao.orientacao = tipo;
-            document.getElementById('opt-retrato').classList.toggle('active', tipo === 'retrato');
-            document.getElementById('opt-paisagem').classList.toggle('active', tipo === 'paisagem');
-            renderizarFolha();
+        function alterarOrientacao(valor) {
+            config.orientacao = valor;
+            document.getElementById('btn-retrato').classList.toggle('active', valor === 'retrato');
+            document.getElementById('btn-paisagem').classList.toggle('active', valor === 'paisagem');
+            atualizarTela();
         }
 
-        // Altera a divisão da folha (1 ou 4 cartazes)
-        function setLayoutQtd(qtd) {
-            configuracao.layoutQtd = qtd;
-            document.getElementById('opt-qtd-1').classList.toggle('active', qtd === 1);
-            document.getElementById('opt-qtd-4').classList.toggle('active', qtd === 4);
-            renderizarFolha();
+        function alterarDivisao(valor) {
+            config.divisao = valor;
+            document.getElementById('btn-qtd-1').classList.toggle('active', valor === 1);
+            document.getElementById('btn-qtd-4').classList.toggle('active', valor === 4);
+            atualizarTela();
         }
 
-        // Altera cores de fundo
-        function setVisualBg(cor) {
-            configuracao.bgEstilo = 'bg-' + cor;
-            ['amarelo', 'vermelho', 'branco'].forEach(c => {
-                document.getElementById('opt-bg-' + c).classList.toggle('active', c === cor);
-            });
-            renderizarFolha();
+        function alterarCor(valor) {
+            config.temaCor = valor;
+            document.getElementById('btn-bg-amarelo').classList.toggle('active', valor === 'bg-amarelo');
+            document.getElementById('btn-bg-vermelho').classList.toggle('active', valor === 'bg-vermelho');
+            document.getElementById('btn-bg-branco').classList.toggle('active', valor === 'bg-branco-vermelho');
+            atualizarTela();
         }
 
-        // Altera o estilo da fonte
-        function setVisualFont(fonte) {
-            configuracao.fontEstilo = 'font-' + fonte;
-            document.getElementById('opt-font-letrista').classList.toggle('active', fonte === 'letrista');
-            document.getElementById('opt-font-impact').classList.toggle('active', fonte === 'impact');
-            renderizarFolha();
+        function alterarFonte(valor) {
+            config.temaFonte = valor;
+            document.getElementById('btn-font-letrista').classList.toggle('active', valor === 'font-letrista');
+            document.getElementById('btn-font-impact').classList.toggle('active', valor === 'font-impact');
+            atualizarTela();
         }
 
-        // Renderiza visualmente a folha e distribui os cartazes nela
-        function renderizarFolha() {
-            // Atualiza classes da folha container
-            sheetElement.className = `print-sheet ${configuracao.orientacao}`;
-            if(configuracao.layoutQtd === 4) {
-                sheetElement.classList.add('grid-4');
+        // Função Central de Renderização (Reconstrói a folha baseada nas opções)
+        function atualizarTela() {
+            // 1. Ajustar Orientação da Folha container
+            const sheet = document.getElementById('print-sheet');
+            sheet.className = `print-sheet ${config.orientacao}`;
+
+            // 2. Ajustar Grid interno (1 ou 4 divisões)
+            const grid = document.getElementById('grid-container');
+            grid.className = 'grid-container';
+            if(config.divisao === 4) {
+                grid.classList.add('grid-4-active');
             }
 
-            sheetElement.innerHTML = '';
-            
-            // Define quantos cartazes vamos exibir na folha física atual
-            let limite = configuracao.layoutQtd;
-            
-            for(let i = 0; i < limite; i++) {
-                // Se não houver produto na fila para preencher o espaço, cria um modelo genérico vazio
-                let prod = filaProdutos[i] || { name: "Espaço Vazio", price: "00", cents: "00", unit: "un", footer: "" };
-                
-                let formatCents = prod.cents;
-                if(formatCents && !formatCents.startsWith(',')) formatCents = ',' + formatCents;
+            // 3. Montar os cartazes dentro da Folha
+            grid.innerHTML = '';
+            let totalCartazesParaGerar = config.divisao;
 
-                let posterHTML = `
-                    <div class="poster ${configuracao.bgEstilo} ${configuracao.fontEstilo}">
+            for(let i = 0; i < totalCartazesParaGerar; i++) {
+                // Pega o produto correspondente da lista. Se não houver, deixa um espaço de rascunho
+                let item = listaProdutos[i] || { name: "Próximo Produto", price: "00", cents: "00", unit: "un", footer: "Espaço disponível" };
+                
+                let centavosFormatados = item.cents;
+                if(centavosFormatados && !centavosFormatados.startsWith(',')) {
+                    centavosFormatados = ',' + centavosFormatados;
+                }
+
+                let cartazHTML = `
+                    <div class="poster ${config.temaCor} ${config.temaFonte}">
                         <div class="poster-header">OFERTA</div>
-                        <div class="poster-product">${prod.name || 'PRODUTO'}</div>
+                        <div class="poster-product">${item.name}</div>
                         <div class="poster-price-container">
                             <span class="poster-currency">R$</span>
-                            <span class="poster-price-main">${prod.price || '0'}</span>
+                            <span class="poster-price-main">${item.price}</span>
                             <div class="poster-price-cents-box">
-                                <span class="poster-price-cents">${formatCents || ',00'}</span>
-                                <span class="poster-unit">
+                                <span class="poster-price-cents">${centavosFormatados}</span>
+                                <span class="poster-unit">/${item.unit}</span>
+                            </div>
+                        </div>
+                        <div class="poster-footer">${item.footer}</div>
+            
